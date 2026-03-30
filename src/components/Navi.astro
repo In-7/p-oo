@@ -1,0 +1,234 @@
+---
+---
+
+<nav class="bg-zinc-900 shadow-lg fixed top-0 left-4 right-4 sm:left-8 sm:right-8 md:left-12 md:right-9 z-50">
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 py-1">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-10 lg:space-x-16 xl:space-x-24">
+        <div class="flex items-center space-x-0 md:space-x-1 lg:space-x-2">
+          <div class="w-8 h-8 flex items-center justify-center">
+            <img src="/favicon.svg" alt="Mped" class="w-6 h-6" width="24" height="24" loading="eager" />
+          </div>
+          <a href="/" class="text-sm tracking-wider text-cyan-200 hover:text-white transition-colors">Mped</a>
+        </div>
+
+        <div class="hidden md:flex space-x-1">
+          <a href="/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">主页<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/blog/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">博客<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/software/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">软件<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/system/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">系统<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/game/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">游戏<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button id="search-toggle" class="p-2 text-gray-300 hover:text-white hover:bg-zinc-800 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+
+        <button id="hamburger-menu" class="md:hidden p-2 text-gray-300 hover:text-white hover:bg-zinc-800 rounded-lg transition-all duration-300 relative z-50">
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-zinc-800 shadow-xl z-50">
+      <div class="py-2 space-y-0">
+        <a href="/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">主页</a>
+        <a href="/blog/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">博客</a>
+        <a href="/software/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">软件</a>
+        <a href="/system/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">系统</a>
+        <a href="/game/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">游戏</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<div id="search-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black bg-opacity-70" id="search-overlay"></div>
+  <div class="relative flex items-center justify-center min-h-screen p-4">
+    <div class="bg-zinc-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
+      <div class="flex items-center justify-between p-6 border-b border-zinc-700">
+        <h3 class="text-lg font-semibold text-teal-400">搜索网站内容</h3>
+        <button id="search-close" class="p-2 text-gray-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="p-6">
+        <div class="relative">
+          <input type="text" id="search-input" placeholder="输入关键词搜索..." class="w-full px-4 py-3 bg-zinc-800 text-white rounded-lg border border-zinc-700 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all duration-300" />
+          <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div id="search-results" class="p-6 border-t border-zinc-700 max-h-96 overflow-y-auto">
+        <div class="text-center text-gray-400 py-8">
+          <svg class="w-12 h-12 mx-auto mb-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p>输入关键词开始搜索</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    let isMenuOpen = false;
+    hamburgerMenu.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('hidden');
+        menuOverlay.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.add('hidden');
+        menuOverlay.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    menuOverlay.addEventListener('click', function(e) {
+      if (e.target === menuOverlay) {
+        toggleMenu();
+      }
+    });
+    mobileMenu.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        e.target.classList.add('bg-teal-500', 'text-white');
+        setTimeout(() => {
+          toggleMenu();
+        }, 200);
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isMenuOpen) {
+        toggleMenu();
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        toggleMenu();
+      }
+    });
+  });
+</script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', async function() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchModal = document.getElementById('search-modal');
+    const searchClose = document.getElementById('search-close');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    let pagefind;
+    try {
+      pagefind = await import('/pagefind/pagefind.js');
+    } catch (e) {
+      console.log('Pagefind not available, using fallback search');
+    }
+    searchToggle.addEventListener('click', function() {
+      searchModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => searchInput.focus(), 100);
+    });
+    function closeSearchModal() {
+      searchModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      searchInput.value = '';
+      searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg><p>输入关键词开始搜索</p></div>';
+    }
+    searchClose.addEventListener('click', closeSearchModal);
+    searchOverlay.addEventListener('click', closeSearchModal);
+    searchModal.addEventListener('click', function(e) {
+      if (e.target === searchModal) {
+        closeSearchModal();
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+        closeSearchModal();
+      }
+    });
+    searchInput.addEventListener('input', debounce(async function(e) {
+      const query = e.target.value.trim();
+      if (query.length === 0) {
+        searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg><p>输入关键词开始搜索</p></div>';
+        return;
+      }
+      searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mx-auto mb-4"></div><p>搜索中...</p></div>';
+      if (pagefind) {
+        try {
+          const search = await pagefind.search(query);
+          const results = await Promise.all(search.results.slice(0, 10).map(r => r.data()));
+          if (results.length === 0) {
+            showNoResults();
+          } else {
+            searchResults.innerHTML = results.map(result => '<a href="' + result.url + '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' + (result.meta.title || result.url) + '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' + (result.url.split('/')[1] || '页面') + '</span></div><p class="text-gray-400 text-sm">' + (result.excerpt || '暂无描述') + '</p><div class="text-xs text-teal-400 mt-2">' + result.url + '</div></a>').join('');
+          }
+        } catch (error) {
+          useMockSearch(query);
+        }
+      } else {
+        useMockSearch(query);
+      }
+    }, 300));
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    function showNoResults() {
+      searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><p class="text-lg font-medium">未找到相关结果</p><p class="text-sm">请尝试其他关键词</p></div>';
+    }
+    function useMockSearch(query) {
+      const mockResults = [
+        { title: '欢迎来到主页', url: '/', excerpt: '青火的个人网站主页，介绍个人简介和网站特色。', category: '主页' },
+        { title: '博客文章', url: '/blog/', excerpt: '分享技术心得、生活感悟和创作内容。', category: '博客' },
+        { title: '软件工具', url: '/software/', excerpt: '精选实用的软件工具和应用程序推荐。', category: '软件' },
+        { title: '关于系统页面', url: '/system/', excerpt: '系统相关的内容和配置说明。', category: '系统' },
+        { title: '游戏推荐', url: '/game/', excerpt: '精选游戏推荐和评测。', category: '游戏' }
+      ];
+      const filteredResults = mockResults.filter(result => result.title.toLowerCase().includes(query.toLowerCase()) || result.excerpt.toLowerCase().includes(query.toLowerCase()));
+      if (filteredResults.length === 0) {
+        showNoResults();
+      } else {
+        searchResults.innerHTML = filteredResults.map(result => '<a href="' + result.url + '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' + result.title + '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' + result.category + '</span></div><p class="text-gray-400 text-sm">' + result.excerpt + '</p><div class="text-xs text-teal-400 mt-2">' + result.url + '</div></a>').join('');
+      }
+    }
+  });
+</script>

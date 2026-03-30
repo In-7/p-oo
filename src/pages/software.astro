@@ -1,0 +1,171 @@
+---
+import "../styles/global.css";
+import Navi from "../components/Navi.astro";
+import Footer from "../components/Footer.astro";
+import CategoryFilter from "../components/CategoryFilter.astro";
+import { getCollection } from 'astro:content';
+
+// 使用 Content Collections 获取软件数据
+const softwareItems = await getCollection('software');
+
+// 从 URL 获取当前分类
+const url = new URL(Astro.url);
+const rawCategory = url.searchParams.get("category") || "全部";
+const selectedCategory = decodeURIComponent(rawCategory);
+
+// 服务器端筛选
+const filteredSoftware = selectedCategory === "全部" 
+  ? softwareItems 
+  : softwareItems.filter(item => item.data.category === selectedCategory);
+
+// 提取所有分类
+const categories = [...new Set(softwareItems.map(item => item.data.category))];
+
+// 动态 SEO 配置
+const pageTitle = selectedCategory === "全部" 
+  ? "所有软件 - Mped的个人网站" 
+  : `${selectedCategory} - 软件分类 - Mped的个人网站`;
+
+const pageDescription = selectedCategory === "全部"
+  ? "浏览所有软件工具和应用程序，包括开发工具、设计软件、办公软件等。"
+  : `浏览${selectedCategory}分类下的软件工具和应用程序。`;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content={pageDescription} />
+  <meta name="author" content="Mped" />
+  <link rel="icon" href="/favicon.png" />
+  <title>{pageTitle}</title>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <Navi />
+
+  <main class="flex-1 container mx-auto px-2 py-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-teal-400 mb-4">软件工具</h1>
+        <p class="text-gray-300 text-lg">精选实用的软件工具和应用程序</p>
+      </div>
+
+      <!-- 分类筛选 -->
+      <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-teal-400 mb-4">分类筛选</h2>
+        <CategoryFilter 
+          categories={categories}
+          selectedCategory={selectedCategory}
+          baseUrl="/software"
+        />
+      </div>
+
+      <!-- 结果统计 -->
+      <div class="flex justify-between items-center mb-6">
+        <p class="text-gray-400">
+          找到 <span id="result-count" class="text-teal-400 font-semibold">{filteredSoftware.length}</span> 个软件
+        </p>
+        <p class="text-gray-400 text-sm">
+          当前分类: <span id="current-category" class="text-teal-400">{selectedCategory}</span>
+        </p>
+      </div>
+
+      <!-- 软件网格 -->
+      {filteredSoftware.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2">
+          {filteredSoftware.map(software => (
+            <article 
+              data-key={software.data.id}
+              class="software-card bg-zinc-800 rounded-xl p-6 hover:scale-105 hover:shadow-2xl cursor-pointer" 
+              data-category={software.data.category}
+            >
+              <div class="flex flex-col h-full">
+                <div class="flex items-center mb-4">
+                  <div 
+                    class="w-12 h-12 rounded-lg flex items-center justify-center"
+                    style={`background-color: ${software.data.color};`}
+                  >
+                    <span class="text-white font-bold text-xl">{software.data.icon}</span>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-bold text-white hover:text-teal-300 transition-colors">{software.data.name}</h3>
+                    <span class="text-xs text-gray-400">{software.data.category}</span>
+                  </div>
+                </div>
+                <p class="text-gray-300 text-sm flex-grow mb-4 leading-relaxed">{software.data.description}</p>
+                <div class="flex justify-between text-xs text-gray-400">
+                  <span class="bg-zinc-700 px-2 py-1 rounded">{software.data.price}</span>
+                  <span>{software.data.platform}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 text-gray-400">
+          <p class="text-lg">暂无相关软件</p>
+          <p class="text-sm">请尝试选择其他分类</p>
+        </div>
+      )}
+
+      <!-- 加载更多按钮 -->
+      {filteredSoftware.length > 0 && (
+        <div class="text-center mt-12">
+          <button disabled class="px-8 py-3 bg-teal-500/70 text-white font-semibold rounded-lg cursor-not-allowed">
+            加载更多软件
+          </button>
+        </div>
+      )}
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- 客户端脚本：TypeScript（Astro 6.0 支持） -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryLinks = document.querySelectorAll('a[data-category]');
+      const softwareCards = document.querySelectorAll('.software-card');
+      const resultCount = document.getElementById('result-count');
+      const currentCategory = document.getElementById('current-category');
+      
+      if (!categoryLinks.length || !resultCount || !currentCategory) return;
+
+      categoryLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();          
+          const category = link.dataset.category ?? '';
+          if (!category) return;
+          
+          const newUrl = category === '全部'
+            ? '/software'
+            : `/software?category=${encodeURIComponent(category)}`;
+          window.history.pushState({}, '', newUrl);
+          
+          softwareCards.forEach((card) => {
+            const cardCat = card.dataset.category ?? '';
+            card.style.display = category === '全部' || cardCat === category ? 'block' : 'none';
+          });
+          
+          categoryLinks.forEach((item) => {
+            item.classList.replace('bg-teal-500', 'bg-zinc-700');
+            item.classList.replace('text-white', 'text-gray-300');
+          });
+          link.classList.replace('bg-zinc-700', 'bg-teal-500');
+          link.classList.replace('text-gray-300', 'text-white');
+          
+          const count = category === '全部'
+            ? softwareCards.length
+            : document.querySelectorAll(`.software-card[data-category="${category}"]`).length;          
+          resultCount.textContent = count.toString();
+          currentCategory.textContent = category;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

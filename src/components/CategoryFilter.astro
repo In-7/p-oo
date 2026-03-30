@@ -1,0 +1,79 @@
+---
+// src/components/CategoryFilter.astro
+
+export interface Props {
+  categories: string[];
+  selectedCategory: string;
+  baseUrl: string;
+  paramName?: string;
+  variant?: 'default' | 'pill' | 'tab';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { 
+  categories, 
+  selectedCategory, 
+  baseUrl, 
+  paramName = 'category',
+  variant = 'pill',
+  size = 'md'
+} = Astro.props;
+
+// 调试信息 - 查看组件接收的参数
+console.log('CategoryFilter 组件参数:');
+console.log('categories:', categories);
+console.log('selectedCategory:', selectedCategory);
+console.log('baseUrl:', baseUrl);
+console.log('paramName:', paramName);
+
+// 样式配置
+const styleConfig = {
+  default: {
+    base: 'px-4 py-2 rounded-lg transition-colors duration-200',
+    active: 'bg-teal-500 text-white',
+    inactive: 'bg-zinc-700 text-gray-300 hover:bg-zinc-600 hover:text-white'
+  },
+  pill: {
+    base: 'px-3 py-1 rounded-full text-sm transition-colors duration-200',
+    active: 'bg-teal-500 text-white',
+    inactive: 'bg-zinc-800 text-gray-400 hover:bg-zinc-700 hover:text-white'
+  },
+  tab: {
+    base: 'px-4 py-3 border-b-2 transition-colors duration-200',
+    active: 'border-teal-500 text-teal-400',
+    inactive: 'border-transparent text-gray-400 hover:text-white'
+  }
+};
+
+const styles = styleConfig[variant];
+const sizeClasses = {
+  sm: 'text-sm',
+  md: 'text-base', 
+  lg: 'text-lg'
+};
+---
+
+<nav class="flex flex-wrap gap-2 mb-6">
+  <!-- 全部 -->
+  <a 
+    href={baseUrl}
+    class={`${styles.base} ${sizeClasses[size]} ${selectedCategory === '全部' ? styles.active : styles.inactive}`}
+  >
+    全部
+  </a>
+  
+  <!-- 分类 -->
+  {categories.map(category => {
+    const categoryUrl = `${baseUrl}?${paramName}=${encodeURIComponent(category)}`;
+    console.log(`分类链接: ${category} -> ${categoryUrl}`);
+    return (
+      <a 
+        href={categoryUrl}
+        class={`${styles.base} ${sizeClasses[size]} ${selectedCategory === category ? styles.active : styles.inactive}`}
+        data-category={category}
+      >
+        {category}
+      </a>
+    );
+  })}
+</nav>
