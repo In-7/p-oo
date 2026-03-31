@@ -1,0 +1,91 @@
+---
+import "../../styles/global.css";
+import Navi from "../../components/Navi.astro";
+import Footer from "../../components/Footer.astro";
+import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
+import { getEntry, render, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogItems = await getCollection('blog');
+  return blogItems.map(post => ({
+    params: { id: post.id },
+  }));
+}
+
+const { id } = Astro.params;
+
+const post = await getEntry('blog', id);
+
+if (!post) {
+  return new Response(null, {
+    status: 404,
+    headers: { Location: '/404' }
+  });
+}
+
+const { Content } = await render(post);
+
+const pageTitle = `${post.data.title} - 博客 - Mped的个人网站`;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content={post.data.description} />
+  <meta name="author" content={post.data.author || 'Mped'} />
+  <link rel="icon" href="/favicon.png" />
+  <title>{pageTitle}</title>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <Navi />
+
+  <main class="flex-1 container mx-auto px-2 py-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-6">
+        <button onclick="history.back()" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m0 0l6-6m-6 6l6 6"></path>
+          </svg>
+          <span>返回上一页</span>
+        </button>
+      </div>
+
+      <article class="bg-zinc-800 rounded-xl p-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-3 py-1 bg-purple-500 text-white text-xs font-medium rounded-full">
+            {post.data.category}
+          </span>
+        </div>
+
+        <h1 class="text-3xl font-bold text-white mb-4">{post.data.title}</h1>
+
+        <div class="flex flex-wrap gap-4 text-sm text-gray-400 mb-8 pb-6 border-b border-zinc-700">
+          <span>作者：{post.data.author || 'Mped'}</span>
+          <span>发布日期：{post.data.pubDate.toLocaleDateString('zh-CN')}</span>
+        </div>
+
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-6">
+            {post.data.tags.map(tag => (
+              <span class="px-2 py-1 bg-zinc-700 text-gray-300 text-xs rounded">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div class="prose prose-invert max-w-none text-gray-300">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+  <PerformanceOptimizer />
+</body>
+</html>
