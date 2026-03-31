@@ -4,6 +4,7 @@ import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CategoryFilter from "../../components/CategoryFilter.astro";
+import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
 import { getCollection } from 'astro:content';
 
 const gameItems = await getCollection('game');
@@ -58,7 +59,7 @@ const breadcrumbItems = [
             <div class="flex flex-col h-full">
               <div class="flex items-center mb-4">
                 <div
-                  class="w-18 h-10 rounded-lg flex items-center justify-center"
+                  class="w-20 h-10 rounded-lg flex items-center justify-center"
                   style={`background-color: ${game.data.color};`}
                 >
                   <span class="text-white font-bold text-xl">{game.data.icon}</span>
@@ -76,12 +77,6 @@ const breadcrumbItems = [
             </div>
           </a>
         ))}
-      </div>
-
-      <div class="text-center mt-12">
-        <button disabled class="px-8 py-3 bg-teal-500/70 text-white font-semibold rounded-lg cursor-not-allowed">
-          加载更多游戏
-        </button>
       </div>
     </div>
   </main>

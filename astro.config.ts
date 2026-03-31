@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import pagefind from 'astro-pagefind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -32,8 +33,14 @@ export default defineConfig({
   site: 'https://yourdomain.com', // 替换为您的域名
   trailingSlash: 'ignore',
 
-  // 集成优化
+  // 集成
   integrations: [
-    // 可以添加更多性能优化集成
+    pagefind({
+      // Pagefind 配置选项
+      projectRoot: './',
+      outDir: './dist/pagefind',
+      sitemap: true,
+      language: 'zh-CN',
+    }),
   ],
 });

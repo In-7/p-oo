@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Navi from "../components/Navi.astro";
 import Footer from "../components/Footer.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 
 const breadcrumbItems = [
   { label: '主页', href: '/' },
@@ -101,15 +102,9 @@ const breadcrumbItems = [
                     </div>
                     
                 </div>
-                
-                <!-- 加载更多按钮 -->
-                <div class="text-center mt-12">
-                    <button class="px-8 py-3 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-400 transition-colors">
-                        加载更多文章
-                    </button>
-                </div>
             </div>
         </main>
         <Footer />
+        <PerformanceOptimizer />
     </body>
 </html> 
