@@ -7,10 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node pagefind-build.js",
+    "build": "astro build && tsx pagefind-build.ts",
     "preview": "astro preview",
     "astro": "astro",
-    "pagefind": "node pagefind-build.js"
+    "pagefind": "tsx pagefind-build.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
@@ -18,6 +18,7 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "pagefind": "^1.4.0"
+    "pagefind": "^1.4.0",
+    "tsx": "^4.21.0"
   }
 }

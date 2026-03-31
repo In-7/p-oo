@@ -10,8 +10,8 @@ import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const distPath = join(__dirname, 'dist');
+const __dirname: string = dirname(fileURLToPath(import.meta.url));
+const distPath: string = join(__dirname, 'dist');
 
 console.log('🔍 开始构建 Pagefind 搜索索引...');
 
@@ -52,6 +52,7 @@ try {
     }
   }
 } catch (error) {
-  console.error('❌ Pagefind 构建失败:', error.message);
+  const err = error as Error;
+  console.error('❌ Pagefind 构建失败:', err.message);
   process.exit(1);
 }

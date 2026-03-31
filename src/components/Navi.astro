@@ -1,6 +1,8 @@
 ---
 ---
 
+<input type="checkbox" id="menu-toggle" class="hidden peer">
+
 <nav class="bg-zinc-900 shadow-lg fixed top-0 left-4 right-4 sm:left-8 sm:right-8 md:left-12 md:right-9 z-50">
   <div class="container mx-auto px-4 sm:px-6 md:px-8 py-1">
     <div class="flex items-center justify-between">
@@ -22,24 +24,23 @@
       </div>
 
       <div class="flex items-center space-x-2">
-        <button id="search-toggle" class="p-2 text-gray-300 hover:text-white hover:bg-zinc-800 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95">
+        <button id="search-toggle" class="p-2 text-teal-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </button>
 
-        <button id="hamburger-menu" class="md:hidden p-2 text-gray-300 hover:text-white hover:bg-zinc-800 rounded-lg transition-all duration-300 relative z-50">
-          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+        <label class="md:hidden cursor-pointer relative z-50" for="menu-toggle">
+          <div class="w-6 h-6 flex flex-col justify-center items-center">
+            <span class="w-6 h-0.5 bg-gray-300 transition-all duration-300 peer-checked:rotate-45 peer-checked:translate-y-1.5"></span>
+            <span class="w-6 h-0.5 bg-gray-300 mt-1.5 transition-all duration-300 peer-checked:opacity-0"></span>
+            <span class="w-6 h-0.5 bg-gray-300 mt-1.5 transition-all duration-300 peer-checked:-rotate-45 peer-checked:-translate-y-1.5"></span>
+          </div>
+        </label>
       </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-zinc-800 shadow-xl z-50">
+    <div id="mobile-menu" class="md:hidden hidden peer-checked:block absolute top-full left-0 right-0 bg-zinc-800 shadow-xl z-50">
       <div class="py-2 space-y-0">
         <a href="/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">主页</a>
         <a href="/blog/" class="block px-6 py-4 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 border-l-4 border-transparent hover:border-teal-400">博客</a>
@@ -51,10 +52,10 @@
   </div>
 </nav>
 
-<div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+<div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden peer-checked:block"></div>
 
 <div id="search-modal" class="fixed inset-0 z-50 hidden">
-  <div class="absolute inset-0 bg-black bg-opacity-70" id="search-overlay"></div>
+  <div class="absolute inset-0 bg-black bg-opacity-70" id="search-modal-overlay"></div>
   <div class="relative flex items-center justify-center min-h-screen p-4">
     <div class="bg-zinc-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
       <div class="flex items-center justify-between p-6 border-b border-zinc-700">
@@ -87,148 +88,191 @@
   </div>
 </div>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
-    let isMenuOpen = false;
-    hamburgerMenu.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleMenu();
-    });
-    function toggleMenu() {
-      isMenuOpen = !isMenuOpen;
-      if (isMenuOpen) {
-        mobileMenu.classList.remove('hidden');
-        menuOverlay.classList.remove('hidden');
-        hamburgerIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      } else {
-        mobileMenu.classList.add('hidden');
-        menuOverlay.classList.add('hidden');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    }
-    menuOverlay.addEventListener('click', function(e) {
-      if (e.target === menuOverlay) {
-        toggleMenu();
-      }
-    });
-    mobileMenu.addEventListener('click', function(e) {
-      if (e.target.tagName === 'A') {
-        e.target.classList.add('bg-teal-500', 'text-white');
-        setTimeout(() => {
-          toggleMenu();
-        }, 200);
-      }
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && isMenuOpen) {
-        toggleMenu();
-      }
-    });
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 768 && isMenuOpen) {
-        toggleMenu();
-      }
-    });
-  });
-</script>
+<script type="module">
+  interface SearchResult {
+    url: string;
+    meta: { title?: string };
+    excerpt?: string;
+    data(): Promise<SearchResult>;
+  }
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', async function() {
+  interface Pagefind {
+    search(query: string): Promise<{ results: SearchResult[] }>;
+  }
+
+  interface MockResult {
+    title: string;
+    url: string;
+    excerpt: string;
+    category: string;
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
     const searchToggle = document.getElementById('search-toggle');
     const searchModal = document.getElementById('search-modal');
     const searchClose = document.getElementById('search-close');
-    const searchOverlay = document.getElementById('search-overlay');
+    const searchModalOverlay = document.getElementById('search-modal-overlay');
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
-    let pagefind;
-    try {
-      pagefind = await import('/pagefind/pagefind.js');
-    } catch (e) {
-      console.log('Pagefind not available, using fallback search');
+
+    if (!searchToggle || !searchModal || !searchClose || !searchModalOverlay || !searchInput || !searchResults) {
+      return;
     }
-    searchToggle.addEventListener('click', function() {
+
+    let pagefind: Pagefind | null = null;
+    let useFallbackMode = false;
+
+    try {
+      const module = await import('/pagefind/pagefind.js');
+      pagefind = module.default as Pagefind;
+      console.log('✅ Pagefind 加载成功');
+    } catch (e) {
+      console.log('⚠️ Pagefind 不可用，使用备用搜索模式');
+      useFallbackMode = true;
+    }
+
+    const openSearchModal = () => {
       searchModal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       setTimeout(() => searchInput.focus(), 100);
-    });
-    function closeSearchModal() {
+    };
+
+    const closeSearchModal = () => {
       searchModal.classList.add('hidden');
       document.body.style.overflow = '';
       searchInput.value = '';
       searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg><p>输入关键词开始搜索</p></div>';
-    }
+    };
+
+    const debounce = (func: Function, wait: number) => {
+      let timeout: NodeJS.Timeout | null = null;
+      return (...args: any[]) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+      };
+    };
+
+    const showNoResults = () => {
+      searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><p class="text-lg font-medium">未找到相关结果</p><p class="text-sm">请尝试其他关键词</p></div>';
+    };
+
+    const useMockSearch = (query: string) => {
+      const mockResults: MockResult[] = [
+        { title: '欢迎来到主页', url: '/', excerpt: '青火的个人网站主页，介绍个人简介和网站特色。', category: '主页' },
+        { title: '博客文章', url: '/blog/', excerpt: '分享技术心得、生活感悟和创作内容。', category: '博客' },
+        { title: '软件工具', url: '/software/', excerpt: '精选实用的软件工具和应用程序推荐，包括开发工具、设计软件、办公软件等。', category: '软件' },
+        { title: 'Adobe Photoshop', url: '/software/adobe-photoshop', excerpt: '专业的图像编辑软件，用于照片修饰、图形设计和数字艺术创作。', category: '设计软件' },
+        { title: 'Visual Studio Code', url: '/software/visual-studio-code', excerpt: '微软开发的轻量级代码编辑器，支持多种编程语言和插件扩展。', category: '开发工具' },
+        { title: 'Git', url: '/software/git', excerpt: '分布式版本控制系统，用于跟踪代码变更和协作开发。', category: '开发工具' },
+        { title: 'Figma', url: '/software/figma', excerpt: '基于云的界面设计工具，支持实时协作和原型设计。', category: '设计软件' },
+        { title: 'Microsoft Office', url: '/software/microsoft-office', excerpt: '微软办公套件，包含 Word、Excel、PowerPoint 等办公软件。', category: '办公软件' },
+        { title: 'Adobe Premiere Pro', url: '/software/adobe-premiere-pro', excerpt: '专业的视频编辑软件，用于电影、电视和网络视频的制作。', category: '媒体软件' },
+        { title: 'CCleaner', url: '/software/ccleaner', excerpt: '系统清理和优化工具，帮助清理垃圾文件和优化系统性能。', category: '系统工具' },
+        { title: 'Malwarebytes', url: '/software/malwarebytes', excerpt: '反恶意软件工具，用于检测和删除恶意软件和广告软件。', category: '安全工具' },
+        { title: '关于系统页面', url: '/system/', excerpt: '系统相关的内容和配置说明，包括 Windows、macOS、Linux 和 ChromeOS。', category: '系统' },
+        { title: 'Windows', url: '/system/windows', excerpt: '微软开发的操作系统，广泛应用于个人电脑和企业环境。', category: '桌面系统' },
+        { title: 'macOS', url: '/system/macos', excerpt: '苹果公司的操作系统，运行在 Mac 电脑上，以稳定性和易用性著称。', category: '桌面系统' },
+        { title: 'Linux', url: '/system/linux', excerpt: '开源操作系统内核，广泛应用于服务器和嵌入式设备。', category: '开源系统' },
+        { title: 'ChromeOS', url: '/system/chromeos', excerpt: '谷歌开发的轻量级操作系统，基于 Linux 内核，主要用于 Chromebook 设备。', category: '云系统' },
+        { title: '游戏推荐', url: '/game/', excerpt: '精选游戏推荐和评测，涵盖动作、冒险、角色扮演、竞速和沙盒等多种类型。', category: '游戏' },
+        { title: '塞尔达传说：旷野之息', url: '/game/10', excerpt: '任天堂开发的开放世界冒险游戏，自由度极高，探索乐趣无穷。', category: '冒险' },
+        { title: '艾尔登法环', url: '/game/1', excerpt: 'FromSoftware 开发的魂系动作角色扮演游戏，挑战性极高。', category: '角色扮演' },
+        { title: '赛博朋克 2077', url: '/game/2', excerpt: 'CD Projekt Red 开发的开放世界动作角色扮演游戏，设定在未来的夜之城。', category: '角色扮演' },
+        { title: '巫师 3：狂猎', url: '/game/3', excerpt: 'CD Projekt Red 开发的开放世界角色扮演游戏，剧情丰富，世界观宏大。', category: '角色扮演' },
+        { title: '荒野大镖客 2', url: '/game/4', excerpt: 'Rockstar Games 开发的开放世界动作冒险游戏，画面精美，细节丰富。', category: '冒险' },
+        { title: '我的世界', url: '/game/5', excerpt: 'Mojang 开发的沙盒建造游戏，自由创造和探索无限可能。', category: '沙盒' },
+        { title: '战神', url: '/game/6', excerpt: 'Santa Monica Studio 开发的动作冒险游戏，讲述北欧神话故事。', category: '动作' },
+        { title: '极限竞速：地平线 5', url: '/game/7', excerpt: 'Playground Games 开发的开放世界竞速游戏，画面精美，驾驶体验出色。', category: '竞速' },
+        { title: '侠盗猎车手 V', url: '/game/8', excerpt: 'Rockstar Games 开发的开放世界动作冒险游戏，自由度极高。', category: '动作' },
+        { title: 'Outer Wilds', url: '/game/9', excerpt: 'Annapurna Interactive 发行的探索解谜游戏，独特的循环时间机制。', category: '冒险' }
+      ];
+
+      const filteredResults = mockResults.filter(
+        (result) =>
+          result.title.toLowerCase().includes(query.toLowerCase()) ||
+          result.excerpt.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (filteredResults.length === 0) {
+        showNoResults();
+      } else {
+        searchResults.innerHTML = filteredResults
+          .map(
+            (result) =>
+              '<a href="' +
+              result.url +
+              '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' +
+              result.title +
+              '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' +
+              result.category +
+              '</span></div><p class="text-gray-400 text-sm">' +
+              result.excerpt +
+              '</p><div class="text-xs text-teal-400 mt-2">' +
+              result.url +
+              '</div></a>'
+          )
+          .join('');
+      }
+    };
+
+    searchToggle.addEventListener('click', openSearchModal);
     searchClose.addEventListener('click', closeSearchModal);
-    searchOverlay.addEventListener('click', closeSearchModal);
-    searchModal.addEventListener('click', function(e) {
+    searchModalOverlay.addEventListener('click', closeSearchModal);
+    searchModal.addEventListener('click', (e) => {
       if (e.target === searchModal) {
         closeSearchModal();
       }
     });
-    document.addEventListener('keydown', function(e) {
+
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
         closeSearchModal();
       }
     });
-    searchInput.addEventListener('input', debounce(async function(e) {
-      const query = e.target.value.trim();
+
+    const handleSearch = debounce(async (e) => {
+      const query = searchInput.value.trim();
       if (query.length === 0) {
         searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg><p>输入关键词开始搜索</p></div>';
         return;
       }
+
       searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500 mx-auto mb-4"></div><p>搜索中...</p></div>';
-      if (pagefind) {
+
+      if (pagefind && !useFallbackMode) {
         try {
           const search = await pagefind.search(query);
-          const results = await Promise.all(search.results.slice(0, 10).map(r => r.data()));
+          const results = await Promise.all(search.results.slice(0, 10).map((r) => r.data()));
           if (results.length === 0) {
             showNoResults();
           } else {
-            searchResults.innerHTML = results.map(result => '<a href="' + result.url + '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' + (result.meta.title || result.url) + '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' + (result.url.split('/')[1] || '页面') + '</span></div><p class="text-gray-400 text-sm">' + (result.excerpt || '暂无描述') + '</p><div class="text-xs text-teal-400 mt-2">' + result.url + '</div></a>').join('');
+            searchResults.innerHTML = results
+              .map(
+                (result) =>
+                  '<a href="' +
+                  result.url +
+                  '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' +
+                  (result.meta.title || result.url) +
+                  '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' +
+                  (result.url.split('/')[1] || '页面') +
+                  '</span></div><p class="text-gray-400 text-sm">' +
+                  (result.excerpt || '暂无描述') +
+                  '</p><div class="text-xs text-teal-400 mt-2">' +
+                  result.url +
+                  '</div></a>'
+              )
+              .join('');
           }
         } catch (error) {
+          console.log('⚠️ Pagefind 搜索失败，切换到备用模式');
+          useFallbackMode = true;
           useMockSearch(query);
         }
       } else {
         useMockSearch(query);
       }
-    }, 300));
-    function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
-    }
-    function showNoResults() {
-      searchResults.innerHTML = '<div class="text-center text-gray-400 py-8"><svg class="w-12 h-12 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><p class="text-lg font-medium">未找到相关结果</p><p class="text-sm">请尝试其他关键词</p></div>';
-    }
-    function useMockSearch(query) {
-      const mockResults = [
-        { title: '欢迎来到主页', url: '/', excerpt: '青火的个人网站主页，介绍个人简介和网站特色。', category: '主页' },
-        { title: '博客文章', url: '/blog/', excerpt: '分享技术心得、生活感悟和创作内容。', category: '博客' },
-        { title: '软件工具', url: '/software/', excerpt: '精选实用的软件工具和应用程序推荐。', category: '软件' },
-        { title: '关于系统页面', url: '/system/', excerpt: '系统相关的内容和配置说明。', category: '系统' },
-        { title: '游戏推荐', url: '/game/', excerpt: '精选游戏推荐和评测。', category: '游戏' }
-      ];
-      const filteredResults = mockResults.filter(result => result.title.toLowerCase().includes(query.toLowerCase()) || result.excerpt.toLowerCase().includes(query.toLowerCase()));
-      if (filteredResults.length === 0) {
-        showNoResults();
-      } else {
-        searchResults.innerHTML = filteredResults.map(result => '<a href="' + result.url + '" class="block p-4 hover:bg-zinc-800 rounded-lg transition-colors group"><div class="flex items-start justify-between mb-2"><h4 class="text-white font-medium group-hover:text-teal-300 transition-colors">' + result.title + '</h4><span class="text-xs text-gray-400 bg-zinc-700 px-2 py-1 rounded-full">' + result.category + '</span></div><p class="text-gray-400 text-sm">' + result.excerpt + '</p><div class="text-xs text-teal-400 mt-2">' + result.url + '</div></a>').join('');
-      }
-    }
+    }, 300);
+
+    searchInput.addEventListener('input', handleSearch);
   });
 </script>

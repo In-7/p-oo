@@ -1,0 +1,113 @@
+---
+import "../../styles/global.css";
+import Navi from "../../components/Navi.astro";
+import Footer from "../../components/Footer.astro";
+import { getEntry, render, getCollection } from 'astro:content';
+
+// 获取动态路由参数
+const { id } = Astro.params;
+
+// 获取所有系统数据用于生成静态路径
+export async function getStaticPaths() {
+  const systemItems = await getCollection('system');
+  return systemItems.map(system => ({
+    params: { id: system.id },
+  }));
+}
+
+// 获取单个系统数据
+const system = await getEntry('system', id);
+
+// 如果系统不存在，重定向到 404
+if (!system) {
+  return new Response(null, {
+    status: 404,
+    headers: {
+      Location: '/404'
+    }
+  });
+}
+
+// 渲染 Markdown 内容
+const { Content } = await render(system);
+
+// 动态 SEO 配置
+const pageTitle = `${system.data.name} - 操作系统详情 - Mped的个人网站`;
+const pageDescription = `${system.data.name} - ${system.data.description}`;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content={pageDescription} />
+  <meta name="author" content="Mped" />
+  <link rel="icon" href="/favicon.png" />
+  <title>{pageTitle}</title>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <Navi />
+  
+  <main class="flex-1 container mx-auto px-2 py-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- 返回按钮 -->
+      <div class="mb-6">
+        <a href="/system" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 5 5v12a5 5 5 12a5 5 5 12a5 5 5-12"></path>
+          </svg>
+          <span>返回系统列表</span>
+        </a>
+      </div>
+
+      <!-- 系统详情 -->
+      <div class="bg-zinc-800 rounded-xl p-8">
+        <!-- 系统标题和分类 -->
+        <div class="flex items-center mb-6">
+          <div 
+            class="w-16 h-16 rounded-lg flex items-center justify-center"
+            style={`background-color: ${system.data.color};`}
+          >
+            <span class="text-white font-bold text-2xl">{system.data.icon}</span>
+          </div>
+          <div class="ml-4">
+            <h1 class="text-3xl font-bold text-white mb-2">{system.data.name}</h1>
+            <span class="text-sm text-gray-400">{system.data.category}</span>
+          </div>
+        </div>
+
+        <!-- 系统描述 -->
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold text-white mb-4">系统介绍</h2>
+          <p class="text-gray-300 text-lg leading-relaxed">{system.data.description}</p>
+        </div>
+
+        <!-- 系统信息 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-zinc-700 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-white mb-3">版本</h3>
+            <p class="text-gray-300">v{system.data.version}</p>
+          </div>
+          <div class="bg-zinc-700 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-white mb-3">架构</h3>
+            <p class="text-gray-300">{system.data.architecture}</p>
+          </div>
+        </div>
+
+        <!-- Markdown 内容 -->
+        <div class="bg-zinc-900 rounded-lg p-8">
+          <h2 class="text-xl font-semibold text-white mb-4">详细信息</h2>
+          <div class="prose prose prose-invert max-w-none text-gray-300">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</body>
+</html>
