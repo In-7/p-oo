@@ -21,7 +21,7 @@ const breadcrumbItems = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="generator" content={Astro.generator} />
-  <meta name="description" content="浏览各种单机游戏，包括角色扮演、竞速、冒险、沙盒等类型。" />
+  <meta name="description" content="浏览所有单机游戏推荐，包括动作、冒险、角色扮演、竞速和沙盒等多种类型。" />
   <meta name="author" content="Mped" />
   <link rel="icon" href="/favicon.png" />
   <title>单机游戏 - Mped 的个人网站</title>
@@ -33,9 +33,10 @@ const breadcrumbItems = [
   <main class="flex-1 container mx-auto px-2 py-6">
     <div class="max-w-4xl mx-auto">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
 
       <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+        <!-- <h2 class="text-xl font-semibold text-teal-400 mb-4">分类筛选</h2> -->
         <CategoryFilter categories={categories} baseUrl="/game" />
       </div>
 
@@ -50,24 +51,24 @@ const breadcrumbItems = [
 
       <div class="grid gap-6 md:grid-cols-2">
         {gameItems.map(game => (
-          <a 
+          <a
             href={`/game/${game.id}`}
-            class="game-card bg-zinc-800 rounded-xl p-6 hover:scale-105 hover:shadow-2xl transition-all duration-300"
+            class="bg-zinc-800 rounded-xl p-3 hover:scale-105 hover:shadow-2xl cursor-pointer block transition-all duration-300"
           >
             <div class="flex flex-col h-full">
               <div class="flex items-center mb-4">
-                <div 
-                  class="w-12 h-12 rounded-lg flex items-center justify-center"
+                <div
+                  class="w-18 h-10 rounded-lg flex items-center justify-center"
                   style={`background-color: ${game.data.color};`}
                 >
                   <span class="text-white font-bold text-xl">{game.data.icon}</span>
                 </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-bold text-white hover:text-teal-300 transition-colors">{game.data.name}</h3>
-                  <span class="text-xs text-gray-400">{game.data.category}</span>
+                <div class="ml-8">
+                  <h3 class="text-base font-bold text-white hover:text-teal-300 transition-colors">{game.data.name}</h3>
+                  <span class="text-sm text-gray-400">{game.data.category}</span>
                 </div>
               </div>
-              <p class="text-gray-300 text-sm flex-grow mb-4 leading-relaxed">{game.data.description}</p>
+              <span class="text-gray-300 text-xs flex-grow mb-2 leading-relaxed">{game.data.description}</span>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">{game.data.genre}</span>
                 <span>{game.data.releaseYear}</span>
@@ -75,6 +76,12 @@ const breadcrumbItems = [
             </div>
           </a>
         ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <button disabled class="px-8 py-3 bg-teal-500/70 text-white font-semibold rounded-lg cursor-not-allowed">
+          加载更多游戏
+        </button>
       </div>
     </div>
   </main>

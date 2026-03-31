@@ -33,9 +33,10 @@ const breadcrumbItems = [
   <main class="flex-1 container mx-auto px-2 py-6">
     <div class="max-w-4xl mx-auto">
       <Breadcrumbs items={breadcrumbItems} />
-      
+
 
       <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+        <!-- <h2 class="text-xl font-semibold text-teal-400 mb-4">分类筛选</h2> -->
         <CategoryFilter categories={categories} baseUrl="/system" />
       </div>
 
@@ -52,22 +53,22 @@ const breadcrumbItems = [
         {systemItems.map(system => (
           <a 
             href={`/system/${system.id}`}
-            class="system-card bg-zinc-800 rounded-xl p-6 hover:scale-105 hover:shadow-2xl transition-all duration-300"
+            class="system-card bg-zinc-800 rounded-xl p-3 hover:scale-105 hover:shadow-2xl transition-all duration-300"
           >
             <div class="flex flex-col h-full">
               <div class="flex items-center mb-4">
                 <div 
-                  class="w-12 h-12 rounded-lg flex items-center justify-center"
+                  class="w-18 h-10 rounded-lg flex items-center justify-center"
                   style={`background-color: ${system.data.color};`}
                 >
                   <span class="text-white font-bold text-xl">{system.data.icon}</span>
                 </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-bold text-white hover:text-teal-300 transition-colors">{system.data.name}</h3>
-                  <span class="text-xs text-gray-400">{system.data.category}</span>
+                <div class="ml-8">
+                  <h3 class="text-base font-bold text-white hover:text-teal-300 transition-colors">{system.data.name}</h3>
+                  <span class="text-sm text-gray-400">{system.data.category}</span>
                 </div>
               </div>
-              <p class="text-gray-300 text-sm flex-grow mb-4 leading-relaxed">{system.data.description}</p>
+              <span class="text-gray-300 text-xs flex-grow mb-2 leading-relaxed">{system.data.description}</span>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">v{system.data.version}</span>
                 <span>{system.data.architecture}</span>

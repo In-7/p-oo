@@ -9,14 +9,14 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const gameItems = await getCollection('game');
   const categories = [...new Set(gameItems.map(item => item.data.category))];
-  
+
   return categories.map(category => {
     const slug = category.toLowerCase().replace(/\s+/g, '-');
     const filteredGame = gameItems.filter(item => item.data.category === category);
-    
+
     return {
       params: { category: slug },
-      props: { 
+      props: {
         category,
         filteredGame,
         allCategories: categories
@@ -29,7 +29,7 @@ const { category, filteredGame, allCategories } = Astro.props;
 
 const breadcrumbItems = [
   { label: '主页', href: '/' },
-  { label: '游戏', href: '/game' },
+  { label: '单机游戏', href: '/game' },
   { label: category }
 ];
 ---
@@ -40,10 +40,10 @@ const breadcrumbItems = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={`浏览${category}类型的游戏。`} />
+  <meta name="description" content={`浏览${category}分类下的单机游戏推荐。`} />
   <meta name="author" content="Mped" />
   <link rel="icon" href="/favicon.png" />
-  <title>{category}游戏 - Mped 的个人网站</title>
+  <title>{category} - Mped 的个人网站</title>
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -52,9 +52,10 @@ const breadcrumbItems = [
   <main class="flex-1 container mx-auto px-2 py-6">
     <div class="max-w-4xl mx-auto">
       <Breadcrumbs items={breadcrumbItems} currentPage={category} />
-      
+
 
       <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+        <!-- <h2 class="text-xl font-semibold text-teal-400 mb-4">分类筛选</h2> -->
         <CategoryFilter categories={allCategories} selectedCategory={category} baseUrl="/game" />
       </div>
 
@@ -67,26 +68,26 @@ const breadcrumbItems = [
         </p>
       </div>
 
-      <div class="grid gap-6 md:grid-cols-2 w-full">
+      <div class="grid gap-6 md:grid-cols-2">
         {filteredGame.map(game => (
-          <a 
+          <a
             href={`/game/${game.id}`}
-            class="game-card bg-zinc-800 rounded-xl p-6 hover:scale-105 hover:shadow-2xl transition-all duration-300"
+            class="bg-zinc-800 rounded-xl p-3 hover:scale-105 hover:shadow-2xl cursor-pointer block transition-all duration-300"
           >
             <div class="flex flex-col h-full">
               <div class="flex items-center mb-4">
-                <div 
-                  class="w-12 h-12 rounded-lg flex items-center justify-center"
+                <div
+                  class="w-18 h-10 rounded-lg flex items-center justify-center"
                   style={`background-color: ${game.data.color};`}
                 >
                   <span class="text-white font-bold text-xl">{game.data.icon}</span>
                 </div>
-                <div class="ml-4">
-                  <h3 class="text-lg font-bold text-white hover:text-teal-300 transition-colors">{game.data.name}</h3>
-                  <span class="text-xs text-gray-400">{game.data.category}</span>
+                <div class="ml-8">
+                  <h3 class="text-base font-bold text-white hover:text-teal-300 transition-colors">{game.data.name}</h3>
+                  <span class="text-sm text-gray-400">{game.data.category}</span>
                 </div>
               </div>
-              <p class="text-gray-300 text-sm flex-grow mb-4 leading-relaxed">{game.data.description}</p>
+              <span class="text-gray-300 text-xs flex-grow mb-2 leading-relaxed">{game.data.description}</span>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">{game.data.genre}</span>
                 <span>{game.data.releaseYear}</span>

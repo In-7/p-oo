@@ -145,8 +145,8 @@
     };
 
     const debounce = (func: Function, wait: number) => {
-      let timeout: NodeJS.Timeout | null = null;
-      return (...args: any[]) => {
+      let timeout: ReturnType<typeof setTimeout> | null = null;
+      return (...args: unknown[]) => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => func(...args), wait);
       };
@@ -215,7 +215,11 @@
       }
     };
 
-    searchToggle.addEventListener('click', openSearchModal);
+    searchToggle.addEventListener('click', (e) => {
+      console.log('🔍 搜索按钮被点击');
+      e.preventDefault();
+      openSearchModal();
+    });   
     searchClose.addEventListener('click', closeSearchModal);
     searchModalOverlay.addEventListener('click', closeSearchModal);
     searchModal.addEventListener('click', (e) => {

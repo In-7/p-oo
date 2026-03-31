@@ -4,7 +4,6 @@ import { glob } from 'astro/loaders';
 const software = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/software' }),
   schema: z.object({
-    id: z.number(),
     name: z.string(),
     category: z.string(),
     description: z.string(),
@@ -18,7 +17,6 @@ const software = defineCollection({
 const system = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/system' }),
   schema: z.object({
-    id: z.number(),
     name: z.string(),
     category: z.string(),
     description: z.string(),
@@ -32,7 +30,6 @@ const system = defineCollection({
 const game = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/game' }),
   schema: z.object({
-    id: z.number(),
     name: z.string(),
     category: z.string(),
     description: z.string(),
