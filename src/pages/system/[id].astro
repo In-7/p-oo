@@ -3,15 +3,20 @@ import "../../styles/global.css";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getEntry, render, getCollection } from 'astro:content';
+import { getEntry, render, } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 // 获取动态路由参数
 const { id } = Astro.params;
 
 // 获取所有系统数据用于生成静态路径
+// 使用 GetStaticPaths 类型
 export async function getStaticPaths() {
   const systemItems = await getCollection('system');
-  return systemItems.map(system => ({
+  
+  // 显式声明 system 的类型为 CollectionEntry<'system'>
+  return systemItems.map((system: CollectionEntry<'system'>) => ({
     params: { id: system.id },
   }));
 }

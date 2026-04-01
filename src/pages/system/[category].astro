@@ -5,15 +5,15 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CategoryFilter from "../../components/CategoryFilter.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const systemItems = await getCollection('system');
-  const categories = [...new Set(systemItems.map(item => item.data.category))];
+  const systemItems: CollectionEntry<'system'>[] = await getCollection('system');
+  const categories: string[] = [...new Set(systemItems.map(item => item.data.category))];
   
   return categories.map(category => {
     const slug = category.toLowerCase().replace(/\s+/g, '-');
-    const filteredSystem = systemItems.filter(item => item.data.category === category);
+    const filteredSystem: CollectionEntry<'system'>[] = systemItems.filter(item => item.data.category === category);
     
     return {
       params: { category: slug },
@@ -88,7 +88,7 @@ const breadcrumbItems = [
                   <span class="text-sm text-gray-400">{system.data.category}</span>
                 </div>
               </div>
-              <p class="text-gray-300 text-xs flex-grow mb-4 leading-relaxed">{system.data.description}</p>
+              <p class="text-gray-300 text-xs grow mb-4 leading-relaxed">{system.data.description}</p>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">v{system.data.version}</span>
                 <span>{system.data.architecture}</span>

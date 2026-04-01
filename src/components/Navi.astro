@@ -3,22 +3,23 @@ import PagefindSearch from 'astro-pagefind/components/Search';
 ---
 
 <nav class="bg-zinc-900 shadow-lg fixed top-0 left-4 right-4 sm:left-8 sm:right-8 md:left-12 md:right-9 z-50">
-  <div class="container mx-auto px-4 sm:px-6 md:px-8 py-1">
+  <!-- 导航栏部分保持不变 ... -->
+  <div class="container mx-auto px-4 sm:px-6 md:px-8 py-2">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4 sm:space-x-6 md:space-x-10 lg:space-x-16 xl:space-x-24">
         <div class="flex items-center space-x-0 md:space-x-1 lg:space-x-2">
           <div class="w-8 h-8 flex items-center justify-center">
             <img src="/favicon.svg" alt="Mped" class="w-6 h-6" width="24" height="24" loading="eager" />
           </div>
-          <a href="/" class="text-sm tracking-wider text-cyan-200 hover:text-white transition-colors">Mped</a>
+          <a href="/" class="text-base tracking-wider text-teal-300 hover:text-white transition-colors">Mped</a>
         </div>
 
-        <div class="hidden md:flex space-x-1">
-          <a href="/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">主页<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
-          <a href="/blog/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">博客<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
-          <a href="/software/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">软件<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
-          <a href="/system/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">系统<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
-          <a href="/game/" class="tracking-wider text-sm font-semibold text-gray-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">游戏<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+        <div class="hidden md:flex space-x-2">
+          <a href="/" class="tracking-wider text-sm font-normal text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">主页<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/blog/" class="tracking-wider text-sm font-normal text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">博客<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>   
+          <a href="/software/" class="tracking-wider text-sm font-normal text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">软件<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/system/" class="tracking-wider text-sm font-normal text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">系统<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
+          <a href="/game/" class="tracking-wider text-sm font-normal text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">游戏<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
         </div>
       </div>
 
@@ -36,11 +37,11 @@ import PagefindSearch from 'astro-pagefind/components/Search';
             </svg>
           </summary>
           <div class="absolute right-0 top-full mt-2 w-48 bg-zinc-800 rounded-lg shadow-xl z-50 overflow-hidden">
-            <a href="/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">主页</a>
-            <a href="/blog/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">博客</a>
-            <a href="/software/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">软件</a>
-            <a href="/system/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">系统</a>
-            <a href="/game/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">游戏</a>
+            <a href="/" class="block px-4 py-3 text-teal-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">主页</a>
+            <a href="/blog/" class="block px-4 py-3 text-teal-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">博客</a>
+            <a href="/software/" class="block px-4 py-3 text-teal-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">软件</a>
+            <a href="/system/" class="block px-4 py-3 text-teal-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">系统</a>  
+            <a href="/game/" class="block px-4 py-3 text-teal-300 hover:text-white hover:bg-zinc-700 transition-colors border-l-4 border-transparent hover:border-teal-400">游戏</a>
           </div>
         </details>
       </div>
@@ -48,11 +49,17 @@ import PagefindSearch from 'astro-pagefind/components/Search';
   </div>
 </nav>
 
+<!-- 搜索模态框 -->
 <div id="search-modal" class="fixed inset-0 z-50 hidden">
   <div class="absolute inset-0 bg-black bg-opacity-70" id="search-modal-overlay"></div>
-  <div class="relative flex items-center justify-center min-h-screen p-4">
-    <div class="bg-zinc-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
-      <div class="flex items-center justify-between p-6 border-b border-zinc-700">
+  <!-- 外层容器：用于居中 -->
+  <div class="relative flex items-start justify-center min-h-screen pt-20 p-4">
+    
+    <!-- 内层容器：设置固定最大高度和滚动 -->
+    <div class="bg-zinc-900 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden border border-zinc-700">
+      
+      <!-- 头部：固定不动 -->
+      <div class="flex items-center justify-between p-4 border-b border-zinc-700 shrink-0">
         <h3 class="text-lg font-bold text-teal-400">搜索网站内容</h3>
         <button id="search-close" class="p-2 text-gray-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,8 +67,19 @@ import PagefindSearch from 'astro-pagefind/components/Search';
           </svg>
         </button>
       </div>
-      <div class="p-6">
-        <PagefindSearch className="pagefind-search" />
+      
+      <!-- 内容区：可滚动 -->
+      <div class="p-4 overflow-y-auto grow">
+        <PagefindSearch 
+          className="pagefind-search" 
+          uiOptions={{ 
+            showImages: false,
+            translations: {
+              placeholder: '输入关键词搜索...',
+              zero_results: '没有找到相关内容'
+            }
+          }} 
+        />
       </div>
     </div>
   </div>
@@ -98,65 +116,41 @@ import PagefindSearch from 'astro-pagefind/components/Search';
 </script>
 
 <style is:global>
-  /* Pagefind UI CSS 变量 - 穿透 Shadow DOM 的最佳方案 */
+  /* Pagefind UI CSS 变量配置 */
   :root {
     --pagefind-ui-scale: 1;
     --pagefind-ui-text: #f9fafb;
-    --pagefind-ui-background: #1f2937;
+    --pagefind-ui-background: #18181b; /* 结果背景色，稍微深一点以区分 */
     --pagefind-ui-border: #374151;
     --pagefind-ui-primary: #14b8a6;
     --pagefind-ui-secondary: #9ca3af;
     --pagefind-ui-tag: #374151;
-    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-width: 1px;
     --pagefind-ui-border-radius: 8px;
     --pagefind-ui-font: inherit;
+    --pagefind-ui-max-height: 50vh; 
+
+        /* 1. 卡片间距与内边距 */
+    .pagefind-search .pagefind-ui__result {
+      padding: 0.5rem;       /* 减小内边距 */
+      margin-bottom: 0.1rem;  /* 减小下边距 */
+    }
+      /* 2. 标题 */
+    .pagefind-search .pagefind-ui__result-title {
+      font-size: 1.25rem;        /* 调整字体大小 */
+      line-height: 1.2;
+    }
+    .result-title {
+    text-align: center;
+    }
   }
 
-  /* 搜索框容器 */
   .pagefind-search {
     width: 100%;
   }
-
-  /* 搜索结果样式 */
-  .pagefind-search_results {
-    margin-top: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  /* 单个搜索结果 */
-  .pagefind-search_result {
-    padding: 1rem !important;
-    margin-bottom: 0.75rem !important;
-    background-color: #1f2937 !important;
-    border-radius: 0.5rem !important;
-    transition: all 0.2s;
-    border: 1px solid #374151;
-  }
-
-  .pagefind-search_result:hover {
-    background-color: #374151 !important;
-    border-color: #14b8a6;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .pagefind-search_result a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  /* 无结果提示 */
-  .pagefind-no-results {
-    text-align: center;
-    padding: 2rem;
-    color: #9ca3af;
-  }
-  /* 加载中 */
-  .pagefind-loading {
-    text-align: center;
-    padding: 2rem;
-    color: #14b8a6;
+  
+  /* 确保结果容器本身也能正确处理滚动 */
+  .pagefind-search > :first-child {
+    height: 100%;
   }
 </style>

@@ -1,77 +1,77 @@
 @import "tailwindcss";
 
-/* Tailwind CSS 4.2.2 完全响应式全局样式 -  */
-html { 
-  @apply bg-zinc-900 font-sans 
-         text-sm sm:text-base md:text-lg
-         leading-relaxed sm:leading-normal
-         text-gray-300 sm:text-gray-200 md:text-gray-100
-         scroll-smooth;
-  
-  /* 字体渲染优化 - 解决刷新时字体偏移 */
-  font-display: swap;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* 将全局基础样式放在 @layer base 中 (可选，但推荐用于重置样式) */
+@layer base {
+  html { 
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    @apply bg-zinc-900 font-sans 
+           text-sm sm:text-base md:text-lg
+           leading-relaxed sm:leading-normal
+           text-gray-300 sm:text-gray-200 md:text-gray-100
+           scroll-smooth;
+    
+    /* 字体渲染优化 */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body { 
+    @apply mx-auto w-full max-w-5xl min-h-screen
+           flex flex-col 
+           pt-16 sm:pt-20 px-8 sm:px-10 md:px-12 lg:px-16 scroll-mt-20; /* 修正: px-15 -> px-16 */
+  }
+
+  /* 段落和文字优化 */
+  p {
+    @apply mb-1 sm:mb-2 md:mb-3 lg:mb-4
+           text-xs sm:text-sm md:text-base
+           text-gray-300 leading-relaxed;
+  }
+
+  /* 链接优化 */
+  a {
+    @apply text-teal-300 hover:text-white
+           transition-colors duration-200 font-bold;
+  }
+
+  /* 列表优化 */
+  ul, ol {
+    @apply mb-2 sm:mb-3 md:mb-4 lg:mb-5
+           text-gray-300 leading-relaxed;
+  }
+  li {
+    @apply mb-1;
+  }
+
+  /* 代码块优化 */
+  code {
+    @apply bg-zinc-800 text-blue-300 px-1 py-0.5 rounded text-sm;
+  }
+  pre {
+    @apply bg-zinc-800 text-gray-200 p-4 rounded-lg my-4 overflow-x-auto;
+  }
 }
 
-body { 
-  @apply mx-auto w-full max-w-screen-lg min-h-screen
-         flex flex-col  /* 新增：flex布局 */
-         pt-16 sm:pt-20 px-8 sm:px-10 md:px-12 lg:px-15
-         scroll-mt-20;
+/* 将自定义组件类放在 @layer components 中 */
+@layer components {
+  /* 响应式容器优化 */
+  .container-responsive {
+    @apply mx-auto w-full max-w-5xl
+           px-4 sm:px-6 md:px-8 lg:px-12;
+  }
+
+  /* 容器尺寸变体 */
+  .container-sm { @apply max-w-screen-sm; }
+  .container-md { @apply max-w-md; }
+  .container-lg { @apply max-w-lg; }
+  .container-xl { @apply max-w-xl; }
+  .container-2xl { @apply max-w-2xl; }
+  .container-full { @apply max-w-full; }
+  .container-prose { @apply max-w-prose; }
+
+  /* 容器padding变体 */
+  .container-tight { @apply px-2 sm:px-3 md:px-4 lg:px-6; }
+  .container-wide { @apply px-6 sm:px-8 md:px-10 lg:px-16; }
 }
 
-
-
-/* 段落和文字优化 */
-p {
-  @apply mb-1 sm:mb-2 md:mb-3 lg:mb-4
-         text-xs sm:text-sm md:text-base
-         text-gray-300 leading-relaxed;
-}
-
-/* 链接优化 - 深色主题适配 */
-a {
-  @apply text-teal-400 hover:text-white
-         transition-colors duration-200 font-medium;
-}
-
-/* 无序列表，有序列表优化 */
-ul, ol {
-  @apply mb-2 sm:mb-3 md:mb-4 lg:mb-5
-         text-gray-300 leading-relaxed;
-}
-/* 列表内容优化 */
-li {
-  @apply mb-1;
-}
-
-/* 代码块优化 */
-code {
-  @apply bg-zinc-800 text-blue-300 px-1 py-0.5 rounded text-sm;
-}
-
-/* 代码块内容 */
-pre {
-  @apply bg-zinc-800 text-gray-200 p-4 rounded-lg my-4 overflow-x-auto;
-}
-
-/* 响应式容器优化 */
-.container-responsive {
-  @apply mx-auto w-full max-w-screen-lg
-         px-4 sm:px-6 md:px-8 lg:px-12;
-}
-
-/* 容器尺寸变体 */
-.container-sm { @apply max-w-screen-sm; }
-.container-md { @apply max-w-screen-md; }
-.container-lg { @apply max-w-screen-lg; }
-.container-xl { @apply max-w-screen-xl; }
-.container-2xl { @apply max-w-screen-2xl; }
-.container-full { @apply max-w-full; }
-.container-prose { @apply max-w-prose; }
-
-/* 容器padding变体 */
-.container-tight { @apply px-2 sm:px-3 md:px-4 lg:px-6; }
-.container-wide { @apply px-6 sm:px-8 md:px-10 lg:px-16; }

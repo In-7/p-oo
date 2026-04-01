@@ -35,7 +35,7 @@ import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 		  "@type": "WebSite",
 		  "name": "Mped的个人网站",
 		  "description": "分享技术心得、生活感悟和创作内容",
-		  "url": Astro.url.href,
+		  "url": "https://mped.netlify.app/",
 		  "author": {
 		    "@type": "Person",
 		    "name": "Mped"
@@ -44,47 +44,20 @@ import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 		}
 		</script>
 	</head>
+
 	<body class="flex flex-col min-h-screen">
 		<Navi />
 		<main class="flex-1 container mx-auto px-1 py-3">
 			<div class="max-w-4xl mx-auto">
 				<!-- 主标题区域 -->
 				<div class="text-center mb-10">
-					<h1 class="text-3xl font-bold text-teal-400 mb-2">Mped的个人网站</h1>
-					<h2 class="text-xl font-medium text-gray-300">分享技术心得、生活感悟和创作内容</h2>
+					<h1 class="text-3xl font-bold text-teal-400 mb-2">Mped</h1>
+					<!-- <h2 class="text-xl font-medium text-gray-300">分享技术心得、生活感悟和创作内容</h2> -->
 				</div>
 
 				<!-- 内容区域 -->
 				<div class="space-y-8">
-					<!-- 介绍部分 -->
-					<div class="bg-zinc-800 rounded-lg p-6">
-						<h3 class="text-xl font-semibold text-white mb-4">欢迎来到我的网站</h3>
-						<p class="text-gray-300 leading-relaxed mb-4">我正在学习 Astro 的入门教程。这是我网站上的第二个页面，也是我自己建立的第一页面！</p>
-						<p class="text-gray-400 text-sm">随着我完成更多教程，该站点将更新，所以请继续查看我的旅程将如何进行吧！</p>
-					</div>
 
-					<!-- 关于我部分 -->
-					<div class="bg-zinc-800 rounded-lg p-6">
-						<h4 class="text-xl font-semibold text-white mb-4">Mped</h4>
-						<div class="grid gap-4 md:grid-cols-2">
-							<div>
-								<h5 class="text-lg font-medium text-teal-300 mb-2">基本信息</h5>
-								<ul class="text-gray-300 space-y-1">
-									<li>姓名：Mped</li>
-									<li>职业：学生</li>
-									<li>地点：中国</li>
-								</ul>
-							</div>
-							<div>
-								<h5 class="text-lg font-medium text-teal-300 mb-2">技术栈</h5>
-								<ul class="text-gray-300 space-y-1">
-									<li>前端：HTML, CSS, JavaScript</li>
-									<li>框架：Astro, React</li>
-									<li>工具：Git, VS Code</li>
-								</ul>
-							</div>
-						</div>
-					</div>
 
 					<!-- 最新动态 -->
 					<div class="bg-zinc-800 rounded-lg p-6">
@@ -99,7 +72,9 @@ import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 					</div>
 				</div>
 			</div>
+			
 		</main>
+		 
 		<Footer />
 		<PerformanceOptimizer />
 	</body>

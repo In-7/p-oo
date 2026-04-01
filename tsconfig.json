@@ -10,6 +10,7 @@
     "noEmit": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "baseUrl": ".",
@@ -18,7 +19,8 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "astro/types.d.ts"
   ],
   "exclude": [
     "dist",

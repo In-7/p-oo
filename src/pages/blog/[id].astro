@@ -3,10 +3,10 @@ import "../../styles/global.css";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getEntry, render, getCollection } from 'astro:content';
+import { getEntry, render, getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const blogItems = await getCollection('blog');
+  const blogItems: CollectionEntry<'blog'>[] = await getCollection('blog');
   return blogItems.map(post => ({
     params: { id: post.id },
   }));
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 
-const post = await getEntry('blog', id);
+const post: CollectionEntry<'blog'> = await getEntry('blog', id);
 
 if (!post) {
   return new Response(null, {
@@ -70,7 +70,7 @@ const pageTitle = `${post.data.title} - 博客 - Mped的个人网站`;
 
         {post.data.tags && post.data.tags.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-6">
-            {post.data.tags.map(tag => (
+            {post.data.tags.map((tag: string) => (  
               <span class="px-2 py-1 bg-zinc-700 text-gray-300 text-xs rounded">
                 #{tag}
               </span>

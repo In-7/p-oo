@@ -30,17 +30,13 @@ export default defineConfig({
   },
 
   // SEO优化
-  site: 'https://yourdomain.com', // 替换为您的域名
+  site: 'https://mped.netlify.app/', 
   trailingSlash: 'ignore',
 
   // 集成
   integrations: [
     pagefind({
-      // Pagefind 配置选项
-      projectRoot: './',
-      outDir: './dist/pagefind',
-      sitemap: true,
-      language: 'zh-CN',
     }),
+    (await import('@playform/compress')).default(),
   ],
 });

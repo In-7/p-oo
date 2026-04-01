@@ -4,10 +4,10 @@ import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-const blogItems = await getCollection('blog');
-const sortedPosts = blogItems.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const blogItems: CollectionEntry<'blog'>[] = await getCollection('blog');
+const sortedPosts: CollectionEntry<'blog'>[] = blogItems.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const breadcrumbItems = [
   { label: '主页', href: '/' },
@@ -52,7 +52,7 @@ const breadcrumbItems = [
                 {post.data.title}
               </h3>
 
-              <span class="text-gray-300 text-xs flex-grow mb-4 leading-relaxed">
+              <span class="text-gray-300 text-xs grow mb-4 leading-relaxed">
                 {post.data.description}
               </span>
 
@@ -64,7 +64,7 @@ const breadcrumbItems = [
               <div class="flex justify-between items-center mt-2">
                 {post.data.tags && post.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-2">
-                    {post.data.tags.map(tag => (
+                    {post.data.tags.map((tag: string) => (
                       <span class="px-2 py-1 bg-zinc-700 text-gray-300 text-xs rounded">
                         #{tag}
                       </span>

@@ -5,14 +5,13 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CategoryFilter from "../../components/CategoryFilter.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-const systemItems = await getCollection('system');
-const categories = [...new Set(systemItems.map(item => item.data.category))];
-
+const systemItems: CollectionEntry<'system'>[] = await getCollection('system');
+const categories: string[] = [...new Set(systemItems.map(item => item.data.category))];
 const breadcrumbItems = [
   { label: '主页', href: '/' },
-  { label: '操作系统' }
+  { label: '操作系统', href: '/system' }
 ];
 ---
 
@@ -69,7 +68,7 @@ const breadcrumbItems = [
                   <span class="text-sm text-gray-400">{system.data.category}</span>
                 </div>
               </div>
-              <span class="text-gray-300 text-xs flex-grow mb-2 leading-relaxed">{system.data.description}</span>
+              <span class="text-gray-300 text-xs grow mb-2 leading-relaxed">{system.data.description}</span>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">v{system.data.version}</span>
                 <span>{system.data.architecture}</span>

@@ -5,10 +5,10 @@ import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import CategoryFilter from "../../components/CategoryFilter.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-const gameItems = await getCollection('game');
-const categories = [...new Set(gameItems.map(item => item.data.category))];
+const gameItems: CollectionEntry<'game'>[] = await getCollection('game');
+const categories: string[] = [...new Set(gameItems.map(item => item.data.category))];
 
 const breadcrumbItems = [
   { label: '主页', href: '/' },
@@ -69,7 +69,7 @@ const breadcrumbItems = [
                   <span class="text-sm text-gray-400">{game.data.category}</span>
                 </div>
               </div>
-              <span class="text-gray-300 text-xs flex-grow mb-2 leading-relaxed">{game.data.description}</span>
+              <span class="text-gray-300 text-xs grow mb-2 leading-relaxed">{game.data.description}</span>
               <div class="flex justify-between text-xs text-gray-400">
                 <span class="bg-zinc-700 px-2 py-1 rounded">{game.data.genre}</span>
                 <span>{game.data.releaseYear}</span>

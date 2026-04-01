@@ -1,0 +1,7 @@
+{
+  "tailwindCSS.includeLanguages": {
+    "astro": "html",       // 支持 Astro 文件
+    "typescript": "typescriptreact", // 支持 TS 文件
+    "javascript": "javascriptreact"  // 支持 JS 文件
+  }
+}

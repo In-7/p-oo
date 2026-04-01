@@ -3,21 +3,21 @@ import "../../styles/global.css";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getEntry, render, getCollection } from 'astro:content';
+import { getEntry, render, getCollection, type CollectionEntry } from 'astro:content';
 
 // 获取动态路由参数
 const { id } = Astro.params;
 
 // 获取所有软件数据用于生成静态路径
 export async function getStaticPaths() {
-  const softwareItems = await getCollection('software');
+  const softwareItems: CollectionEntry<'software'>[] = await getCollection('software');
   return softwareItems.map(software => ({
     params: { id: software.id },
   }));
 }
 
 // 获取单个软件数据
-const software = await getEntry('software', id);
+const software: CollectionEntry<'software'> = await getEntry('software', id);
 
 // 如果软件不存在，重定向到 404
 if (!software) {

@@ -3,18 +3,18 @@ import "../../styles/global.css";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
-import { getEntry, render, getCollection } from 'astro:content';
+import { getEntry, render, getCollection, type CollectionEntry } from 'astro:content';
 
 const { id } = Astro.params;
 
 export async function getStaticPaths() {
-  const gameItems = await getCollection('game');
+  const gameItems: CollectionEntry<'game'>[] = await getCollection('game');
   return gameItems.map(game => ({
     params: { id: game.id },
   }));
 }
 
-const game = await getEntry('game', id);
+const game: CollectionEntry<'game'> = await getEntry('game', id);
 
 if (!game) {
   return new Response(null, {
