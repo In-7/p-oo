@@ -4,7 +4,6 @@ import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
 import { getEntry, render, } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 // 获取动态路由参数
@@ -50,7 +49,7 @@ const pageDescription = `${system.data.name} - ${system.data.description}`;
   <meta name="generator" content={Astro.generator} />
   <meta name="description" content={pageDescription} />
   <meta name="author" content="Mped" />
-  <link rel="icon" href="/favicon.png" />
+  <link rel="icon" href="/favicon.svg" />
   <title>{pageTitle}</title>
 </head>
 

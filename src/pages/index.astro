@@ -3,7 +3,7 @@ import "../styles/global.css";
 import Navi from "../components/Navi.astro";
 import Footer from "../components/Footer.astro";
 import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
-
+import ConstellationBackground from "../components/ConstellationBackground.astro";
 ---
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -24,7 +24,7 @@ import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 		<meta name="twitter:title" content="Mped的个人网站" />		
 		<meta name="twitter:description" content="分享技术心得、生活感悟和创作内容。专注于前端开发、Astro框架和现代Web技术。" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.png" />
+		<link rel="icon" href="/favicon.svg" />
 		<link rel="canonical" href={Astro.url.href} />
 		<title>Mped的个人网站 - 技术博客与创作分享</title>
 		
@@ -46,35 +46,12 @@ import PerformanceOptimizer from "../components/PerformanceOptimizer.astro";
 	</head>
 
 	<body class="flex flex-col min-h-screen">
+		<ConstellationBackground />
 		<Navi />
 		<main class="flex-1 container mx-auto px-1 py-3">
-			<div class="max-w-4xl mx-auto">
-				<!-- 主标题区域 -->
-				<div class="text-center mb-10">
-					<h1 class="text-3xl font-bold text-teal-400 mb-2">Mped</h1>
-					<!-- <h2 class="text-xl font-medium text-gray-300">分享技术心得、生活感悟和创作内容</h2> -->
-				</div>
-
-				<!-- 内容区域 -->
-				<div class="space-y-8">
 
 
-					<!-- 最新动态 -->
-					<div class="bg-zinc-800 rounded-lg p-6">
-						<h4 class="text-xl font-semibold text-white mb-4">最新动态</h4>
-						<div class="space-y-4">
-							<div class="border-l-4 border-teal-400 pl-4">
-								<h5 class="text-lg font-medium text-teal-300">网站上线</h5>
-								<p class="text-gray-300">我的个人网站正式上线，使用Astro框架构建。</p>
-								<span class="text-gray-400 text-sm">2024年12月</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
 		</main>
-		 
 		<Footer />
 		<PerformanceOptimizer />
 	</body>
