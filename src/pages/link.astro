@@ -1,0 +1,51 @@
+---
+import "../styles/global.css";
+import Navi from "../components/Navi.astro";
+import Footer from "../components/Footer.astro";
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+  	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="Mped的个人网站 - 分享优质网页链接" />
+		<meta name="keywords" content="Mped, 个人网站, 博客, 前端开发, 单机游戏, Web技术, 技术博客, 链接分享" />
+		<meta name="author" content="Mped" />
+		<meta name="robots" content="index, follow" />
+		<meta property="og:title" content="Mped的个人网站" />	
+		<meta property="og:description" content="分享优质网页链接" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:image" content="/og-image.jpg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Mped的个人网站" />		
+		<meta name="twitter:description" content="分享优质网页链接" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.png" />
+		<link rel="canonical" href={Astro.url.href} />
+		<title>Mped的个人网站 - 分享优质网页链接</title>
+				<!-- 结构化数据 -->
+		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "WebSite",
+		  "name": "Mped的个人网站",
+		  "description": "分享优质网页链接",
+		  "url": "https://mped.netlify.app/",
+		  "author": {
+		    "@type": "Person",
+		    "name": "Mped"
+		  },
+		  "inLanguage": "zh-CN"
+		}
+		</script>
+	</head>
+    <body>
+
+
+        <Navi />
+        <Footer />
+    </body>
+</html>
+
