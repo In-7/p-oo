@@ -2,50 +2,95 @@
 import "../styles/global.css";
 import Navi from "../components/Navi.astro";
 import Footer from "../components/Footer.astro";
+// 引入之前设计的蜂窝组件（可选）
+
+// 定义链接数据结构，方便管理
+const links = [
+  {
+    name: "百度",
+    url: "https://www.baidu.com",
+    desc: "全球最大的中文搜索引擎，致力于让网民更便捷地获取信息。",
+    logo: "https://www.baidu.com/favicon.ico", // 实际项目中建议使用本地SVG或高清图标
+    tags: ["搜索", "AI"]
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com",
+    desc: "全球最大的代码托管平台，开发者的社交网络。",
+    logo: "https://github.githubassets.com/favicons/favicon.svg",
+    tags: ["开发", "开源"]
+  },
+  // 在这里添加更多链接...
+];
 ---
+
 <!DOCTYPE html>
 <html lang="zh-CN">
-  	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Mped的个人网站 - 分享优质网页链接" />
-		<meta name="keywords" content="Mped, 个人网站, 博客, 前端开发, 单机游戏, Web技术, 技术博客, 链接分享" />
-		<meta name="author" content="Mped" />
-		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content="Mped的个人网站" />	
-		<meta property="og:description" content="分享优质网页链接" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url.href} />
-		<meta property="og:image" content="/og-image.jpg" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="Mped的个人网站" />		
-		<meta name="twitter:description" content="分享优质网页链接" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.svg" />
-		<link rel="canonical" href={Astro.url.href} />
-		<title>Mped的个人网站 - 分享优质网页链接</title>
-				<!-- 结构化数据 -->
-		<script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "WebSite",
-		  "name": "Mped的个人网站",
-		  "description": "分享优质网页链接",
-		  "url": "https://mped.netlify.app/",
-		  "author": {
-		    "@type": "Person",
-		    "name": "Mped"
-		  },
-		  "inLanguage": "zh-CN"
-		}
-		</script>
-	</head>
-    <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>优质网页链接 - Mped 的个人网站</title>
+  <meta name="description" content="分享一些我收藏的优质网页链接，帮助你更方便地获取信息。" />
+</head>
 
+<body class="bg-zinc-950 text-white">
+  <Navi />
+  
+  <!-- 主布局容器：Flexbox实现左右分栏 -->
+  <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 min-h-screen">
+    
+    <!-- 左侧：链接卡片网格区域 -->
+    <main class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- 页面标题区 -->
+      <div class="col-span-full mb-4">
+        <h1 class="text-3xl font-bold text-teal-400 mb-2">优质网页链接</h1>
+        <p class="text-gray-400">精选互联网优质资源，点击卡片即可快速访问。</p>
+      </div>
 
-        <Navi />
-        <Footer />
-    </body>
+      <!-- 循环渲染链接卡片 -->
+      {links.map((link) => (
+        <a href={link.url} target="_blank" rel="noopener noreferrer" 
+           class="group block p-4 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-teal-500/50 hover:bg-zinc-800 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
+          
+          <div class="flex items-start gap-4">
+            <!-- Logo区域：模拟科技模块感 -->
+            <div class="w-12 h-12 bg-zinc-950 rounded-md flex items-center justify-center p-1 border border-zinc-700 group-hover:border-teal-400 transition-colors shrink-0">
+              <img src={link.logo} alt={`${link.name} Logo`} class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all" />
+            </div>
+            
+            <!-- 信息区域 -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors truncate">{link.name}</h3>
+              <p class="text-sm text-gray-400 mt-1 line-clamp-2">{link.desc}</p>
+              
+              <!-- 标签（可选） -->
+              <div class="flex gap-2 mt-2">
+                {link.tags && link.tags.map((tag) => (
+                  <span class="text-xs px-2 py-0.5 bg-zinc-700 text-teal-300 rounded-full">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </main>
+
+    <!-- 右侧：侧边栏（桌面端显示） -->
+    <aside class="hidden lg:block w-72 shrink-0">
+      <div class="sticky top-24 space-y-6">
+        
+        <!-- 或者放置其他信息 -->
+        <div class="p-4 bg-zinc-900 rounded-lg border border-zinc-800">
+          <h3 class="text-lg font-bold text-teal-400 mb-2">关于本页</h3>
+          <p class="text-sm text-gray-400">这里收录了我日常使用的优质工具和网站，希望能对你有所帮助。</p>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <Footer />
+</body>
 </html>
+
 

@@ -2,18 +2,115 @@
 export interface Props {
   platform: string;
   username: string;
+  icon: string;
 }
 
-const { platform, username } = Astro.props;
+const { platform, username, icon } = Astro.props;
+
+// 1. 定义链接映射
+const hrefMap: Record<string, string> = {
+  // GitHub 和 Bilibili 保持正常的跳转链接
+  GitHub: `https://github.com/${username}`,
+  Bilibili: `https://www.bilibili.com/${username}`,
+  // 微信不需要跳转链接，设为空字符串即可
+  Weixin: ``,
+};
+
+const href = hrefMap[platform] || `#`;
+
+// 2. 判断是否为微信（微信需要特殊处理）
+const isWeixin = platform === 'Weixin';
 ---
 
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+{isWeixin ? (
+  <!-- 微信特殊结构：使用 relative 定位作为弹窗的锚点 -->
+  <div class="relative inline-flex">
+    <!-- 
+      触发按钮：
+      - type="button": 解决之前的 lint 报错
+      - class="peer": Tailwind 的同伴类，用于后续通过 peer-focus: 控制弹窗显示
+    -->
+    <button 
+      type="button" 
+      class="social-link peer"
+      aria-label="显示微信二维码"
+    >
+      <span class="icon-wrapper" set:html={icon} />
+      <span class="sr-only">微信</span>
+    </button>
+
+    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-40 p-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50 opacity-0 invisible peer-focus:opacity-100 peer-focus:visible transition-all duration-300 pointer-events-none">
+      <!-- 小三角箭头 -->
+      <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+      
+      <!-- 二维码图片区域 -->
+      <div class="flex flex-col items-center text-center">
+        <img 
+          src="../public/wechat.jpg"  
+          alt="微信二维码" 
+          class="w-full h-auto rounded"
+        />
+        <span class="text-xs text-teal-600 mt-1 font-medium">扫码关注</span>
+      </div>
+    </div>
+  </div>
+) : (
+  <!-- 其他平台保持原样 -->
+  <a href={href} target="_blank" rel="noopener noreferrer" class="social-link">
+    <span class="icon-wrapper" set:html={icon} />
+    <span class="sr-only">{platform}</span>
+  </a>
+)}
+
 <style>
-  a {
-    padding: 0.25rem 0.5rem;
+  /* 基础样式：同时应用于 a 标签和 button 标签 */
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
     color: rgb(45, 212, 191);
     background-color: transparent;
     text-decoration: none;
+    border: none; /* 清除 button 默认边框 */
+    padding: 0;   /* 清除 button 默认内边距 */
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .social-link:hover,
+  .social-link:focus {
+    background-color: rgba(45, 212, 191, 0.1);
+    color: white;
+    outline: none; /* 移除默认 focus 蓝框，用背景色代替 */
+  }
+
+  .icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon-wrapper :global(svg) {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 </style>
 
