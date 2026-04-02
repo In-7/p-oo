@@ -33,7 +33,7 @@ const links = [
   <meta name="description" content="分享一些我收藏的优质网页链接，帮助你更方便地获取信息。" />
 </head>
 
-<body class="bg-zinc-950 text-white">
+<body class="bg-zinc-800 text-white">
   <Navi />
   
   <!-- 主布局容器：Flexbox实现左右分栏 -->
@@ -41,20 +41,15 @@ const links = [
     
     <!-- 左侧：链接卡片网格区域 -->
     <main class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- 页面标题区 -->
-      <div class="col-span-full mb-4">
-        <h1 class="text-3xl font-bold text-teal-400 mb-2">优质网页链接</h1>
-        <p class="text-gray-400">精选互联网优质资源，点击卡片即可快速访问。</p>
-      </div>
 
       <!-- 循环渲染链接卡片 -->
       {links.map((link) => (
         <a href={link.url} target="_blank" rel="noopener noreferrer" 
-           class="group block p-4 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-teal-500/50 hover:bg-zinc-800 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
+           class="group block p-4 bg-zinc-700 rounded-lg border border-zinc-800 hover:border-teal-500/50 hover:bg-zinc-800 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
           
           <div class="flex items-start gap-4">
             <!-- Logo区域：模拟科技模块感 -->
-            <div class="w-12 h-12 bg-zinc-950 rounded-md flex items-center justify-center p-1 border border-zinc-700 group-hover:border-teal-400 transition-colors shrink-0">
+            <div class="w-12 h-12 bg-zinc-700 rounded-md flex items-center justify-center p-1 border border-zinc-700 group-hover:border-teal-400 transition-colors shrink-0">
               <img src={link.logo} alt={`${link.name} Logo`} class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all" />
             </div>
             
@@ -80,7 +75,7 @@ const links = [
       <div class="sticky top-24 space-y-6">
         
         <!-- 或者放置其他信息 -->
-        <div class="p-4 bg-zinc-900 rounded-lg border border-zinc-800">
+        <div class="p-4 bg-zinc-700 rounded-lg border border-zinc-800">
           <h3 class="text-lg font-bold text-teal-400 mb-2">关于本页</h3>
           <p class="text-sm text-gray-400">这里收录了我日常使用的优质工具和网站，希望能对你有所帮助。</p>
         </div>
