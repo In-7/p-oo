@@ -1,29 +1,23 @@
 ---
 import "../../styles/global.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import PerformanceOptimizer from "../../components/PerformanceOptimizer.astro";
 import { getEntry, render, } from 'astro:content';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-// 获取动态路由参数
 const { id } = Astro.params;
 
-// 获取所有系统数据用于生成静态路径
-// 使用 GetStaticPaths 类型
 export async function getStaticPaths() {
   const systemItems = await getCollection('system');
-  
-  // 显式声明 system 的类型为 CollectionEntry<'system'>
   return systemItems.map((system: CollectionEntry<'system'>) => ({
     params: { id: system.id },
   }));
 }
 
-// 获取单个系统数据
 const system = await getEntry('system', id);
 
-// 如果系统不存在，重定向到 404
 if (!system) {
   return new Response(null, {
     status: 404,
@@ -33,32 +27,17 @@ if (!system) {
   });
 }
 
-// 渲染 Markdown 内容
 const { Content } = await render(system);
 
-// 动态 SEO 配置
 const pageTitle = `${system.data.name} - 操作系统详情 - Mped的个人网站`;
 const pageDescription = `${system.data.name} - ${system.data.description}`;
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={pageDescription} />
-  <meta name="author" content="Mped" />
-  <link rel="icon" href="/favicon.svg" />
-  <title>{pageTitle}</title>
-</head>
-
-<body class="flex flex-col min-h-screen">
+<BaseLayout title={pageTitle} description={pageDescription}>
   <Navi />
-  
-  <main class="flex-1 container mx-auto px-2 py-6">
+
+  <main data-pagefind-body class="flex-1 container mx-auto px-2 py-6">
     <div class="max-w-4xl mx-auto">
-      <!-- 返回按钮 -->
       <div class="mb-6">
         <button onclick="history.back()" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,11 +47,10 @@ const pageDescription = `${system.data.name} - ${system.data.description}`;
         </button>
       </div>
 
-      <!-- 系统详情 -->
       <div class="bg-zinc-800 rounded-xl p-8">
         <div class="flex items-start justify-between mb-6">
           <div class="flex items-center">
-            <div 
+            <div
               class="w-16 h-16 rounded-lg flex items-center justify-center"
               style={`background-color: ${system.data.color};`}
             >
@@ -111,5 +89,4 @@ const pageDescription = `${system.data.name} - ${system.data.description}`;
 
   <Footer />
   <PerformanceOptimizer />
-</body>
-</html>
+</BaseLayout>

@@ -11,8 +11,11 @@ import PagefindSearch from 'astro-pagefind/components/Search';
           <div class="w-8 h-8 flex items-center justify-center">
             <img src="/favicon.svg" alt="Mped" class="w-6 h-6" width="24" height="24" loading="eager" />
           </div>
-          <a href="/" class="text-base tracking-wider bg-linear-to-r from-teal-400 via-purple-500 to-cyan-500 bg-clip-text text-transparent hover:text-white transition-colors">Mped</a>
-        </div>
+            <!-- ✅ 有效 HTML -->
+            <a href="/" class="text-xl tracking-wider bg-clip-text text-transparent hover:text-white transition-colors">
+              <span class="text-red-500">M</span><span class="text-sky-500">p</span><span class="text-lime-500">e</span><span class="text-yellow-300">d</span>
+            </a>        
+          </div>
 
         <div class="hidden md:flex space-x-2">
           <a href="/" class="tracking-wider text-sm font-medium text-teal-300 hover:text-white hover:scale-110 transition-all duration-300 px-4 py-2 rounded-lg relative group">主页<span class="absolute bottom-0 left-1/2 w-0 h-px bg-current transition-all duration-300 group-hover:w-3/5 group-hover:left-1/5 transform -translate-x-1/2 group-hover:translate-x-0"></span></a>
@@ -31,7 +34,7 @@ import PagefindSearch from 'astro-pagefind/components/Search';
           </svg>
         </button>
 
-        <details class="md:hidden relative">
+        <details data-hamburger class="md:hidden relative">
           <summary class="list-none cursor-pointer p-2 text-gray-300 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -88,7 +91,7 @@ import PagefindSearch from 'astro-pagefind/components/Search';
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initSearch() {
     const searchToggle = document.getElementById('search-toggle');
     const searchModal = document.getElementById('search-modal');
     const searchClose = document.getElementById('search-close');
@@ -113,6 +116,16 @@ import PagefindSearch from 'astro-pagefind/components/Search';
           closeModal();
         }
       });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initSearch);
+
+  document.addEventListener('click', (e) => {
+    const details = document.querySelector('details[data-hamburger]');
+    const target = e.target as Node | null;
+    if (details && target && !details.contains(target)) {
+      details.removeAttribute('open');
     }
   });
 </script>

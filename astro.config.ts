@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,11 +31,12 @@ export default defineConfig({
   },
 
   // SEO优化
-  site: 'https://mped.netlify.app/', 
+  site: 'https://mped.netlify.app/',
   trailingSlash: 'ignore',
 
   // 集成
   integrations: [
+    sitemap(),
     pagefind({
     }),
     (await import('@playform/compress')).default(),

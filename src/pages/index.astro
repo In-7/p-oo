@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Navi from "../components/Navi.astro";
 import Footer from "../components/Footer.astro";
 import SearchBox from "../components/SearchBox.astro";
@@ -11,60 +12,24 @@ const brandlogos = [
   { src: "../logos/1.svg", alt: "1" },
 ];
 ---
-<!DOCTYPE html>
-<html lang="zh-CN">
-  	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Mped的个人网站 - 分享技术心得、生活感悟和创作内容。专注于前端开发、Astro框架和现代Web技术。" />
-		<meta name="keywords" content="Mped, 个人网站, 博客, 软件, 单机游戏, 创业, 技术博客" />
-		<meta name="author" content="Mped" />
-		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content="Mped的个人网站" />	
-		<meta property="og:description" content="分享技术心得、生活感悟和创作内容。专注于前端开发、Astro框架和现代Web技术。" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url.href} />
-		<meta property="og:image" content="/og-image.jpg" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="canonical" href={Astro.url.href} />
-		<title>Mped的个人网站 - 技术博客与创作分享</title>
-		
-		<!-- 结构化数据 -->
-		<script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "WebSite",
-		  "name": "Mped的个人网站",
-		  "description": "分享技术心得、生活感悟和创作内容",
-		  "url": "https://mped.netlify.app/",
-		  "author": {
-		    "@type": "Person",
-		    "name": "Mped"
-		  },
-		  "inLanguage": "zh-CN"
-		}
-		</script>
-	</head>
 
-	<body class="flex flex-col min-h-screen">
-		<ConstellationBackground />
-		<Navi />
-		<SearchBox />
-		<main>
-			<div class="flex flex-col items-center justify-center py-20">
+<BaseLayout title="Mped的个人网站 - 技术博客与创作分享" description="分享技术心得、生活感悟和创作内容。专注于前端开发、Astro框架和现代Web技术。">
+  <ConstellationBackground />
+  <Navi />
+  <SearchBox />
+  <main>
+    <div class="flex flex-col items-center justify-center py-20">
 
-			<h1 class="text-2xl font-bold text-center text-transparent mb-4 bg-linear-to-r from-sky-400 via-yellow-500 to-teal-300 bg-clip-text mt-30">
-			实践是检验真理的唯一标准
-			</h1>
-			<h2 class="text-lg font-bold text-center text-transparent mb-4 bg-linear-to-r from-sky-400 via-yellow-500 to-teal-300 bg-clip-text">		
-			实践、认识、再实践、再认识、这种结合现实规律和思想深度的形式，呈螺旋上升之势循环往复以至无穷</h2>
-  			</div>
-		</main>
-		<LogoScroll logos={brandlogos} />
-		<Footer />
-		<PerformanceOptimizer />
-	</body>
-</html>
+    <h1 class="text-2xl font-bold text-center text-transparent mb-4 bg-linear-to-r from-sky-400 via-yellow-500 to-teal-300 bg-clip-text mt-30">
+    实践是检验真理的唯一标准
+    </h1>
+    <h2 class="text-lg font-bold text-center text-transparent mb-4 bg-linear-to-r from-sky-400 via-yellow-500 to-teal-300 bg-clip-text">
+    实践、认识、再实践、再认识、这种结合现实规律和思想深度的形式，呈螺旋上升之势循环往复以至无穷</h2>
+      </div>
+  </main>
+  <LogoScroll logos={brandlogos} />
+  <Footer />
+  <PerformanceOptimizer />
+</BaseLayout>
 
 

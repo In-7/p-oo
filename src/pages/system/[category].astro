@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navi from "../../components/Navi.astro";
 import Footer from "../../components/Footer.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
@@ -10,14 +11,14 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 export async function getStaticPaths() {
   const systemItems: CollectionEntry<'system'>[] = await getCollection('system');
   const categories: string[] = [...new Set(systemItems.map(item => item.data.category))];
-  
+
   return categories.map(category => {
     const slug = category.toLowerCase().replace(/\s+/g, '-');
     const filteredSystem: CollectionEntry<'system'>[] = systemItems.filter(item => item.data.category === category);
-    
+
     return {
       params: { category: slug },
-      props: { 
+      props: {
         category,
         filteredSystem,
         allCategories: categories
@@ -35,28 +36,14 @@ const breadcrumbItems = [
 ];
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={`浏览${category}操作系统。`} />
-  <meta name="author" content="Mped" />
-  <link rel="icon" href="/favicon.svg" />
-  <title>{category} - Mped 的个人网站</title>
-</head>
-
-<body class="flex flex-col min-h-screen">
+<BaseLayout title={`${category} - Mped 的个人网站`} description={`浏览${category}操作系统。`}>
   <Navi />
 
-  <main class="flex-1 container mx-auto px-2 py-6">
+  <main data-pagefind-body class="flex-1 container mx-auto px-2 py-6">
     <div class="max-w-4xl mx-auto">
       <Breadcrumbs items={breadcrumbItems} currentPage={category} />
 
-
       <div class="bg-transparent rounded-lg p-4 mb-4">
-        <!-- <h2 class="text-xl font-semibold text-teal-400 mb-4">分类筛选</h2> -->
         <CategoryFilter categories={allCategories} selectedCategory={category} baseUrl="/system" />
       </div>
 
@@ -71,13 +58,13 @@ const breadcrumbItems = [
 
       <div class="grid gap-6 md:grid-cols-2">
         {filteredSystem.map(system => (
-          <a 
+          <a
             href={`/system/${system.id}`}
             class="system-card bg-zinc-800 rounded-xl p-3 hover:scale-105 hover:shadow-2xl transition-all duration-300"
           >
             <div class="flex flex-col h-full">
               <div class="flex items-center mb-4">
-                <div 
+                <div
                   class="w-20 h-10 rounded-lg flex items-center justify-center"
                   style={`background-color: ${system.data.color};`}
                 >
@@ -108,5 +95,4 @@ const breadcrumbItems = [
 
   <Footer />
   <PerformanceOptimizer />
-</body>
-</html>
+</BaseLayout>
