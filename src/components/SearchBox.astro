@@ -1,0 +1,146 @@
+---
+// src/components/SearchBox.astro
+---
+
+<div class="w-full max-w-2xl mx-auto px-8 mt-8">
+  <form id="search-form" action="https://www.bing.com/search" method="get" target="_blank" class="relative flex items-center bg-zinc-800/50 backdrop-blur-md rounded-full border border-zinc-700 focus-within:border-teal-500 transition-all shadow-lg h-10 overflow-visible">
+    
+    <!-- 左侧：自定义下拉选择器 -->
+    <div id="dropdown-container" class="relative flex z-20 h-full">
+
+      <!-- 触发按钮 -->
+      <button type="button" id="dropdown-btn" class="flex items-center justify-center h-full px-2 border-r border-zinc-700 bg-zinc-800/50 hover:bg-zinc-700/60 transition-colors focus:outline-none rounded-l-full min-w-30">
+        <span id="current-name" class="text-sm font-medium text-white">必应</span>
+        <svg class="w-4 h-4 ml-2 text-gray-400 transition-transform duration-300" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </button>
+
+      <!-- 下拉菜单列表 -->
+      <div id="dropdown-menu" class="absolute left-0 top-full mt-2 w-30 py-2 bg-zinc-800/95 backdrop-blur-md rounded-xl border border-zinc-700 shadow-2xl opacity-0 scale-95 origin-top-left transition-all duration-200 pointer-events-none">
+        <div class="px-2 space-y-1">
+          <button type="button" data-engine="bing" class="engine-option w-full flex items-center px-3 py-2 rounded-lg text-white hover:bg-teal-500/20 transition-colors">
+            <span class="text-sm font-medium">必应</span>
+          </button>
+          <button type="button" data-engine="quark" class="engine-option w-full flex items-center px-3 py-2 rounded-lg text-white hover:bg-teal-500/20 transition-colors">
+            <span class="text-sm font-medium">夸克</span>
+          </button>
+          <button type="button" data-engine="baidu" class="engine-option w-full flex items-center px-3 py-2 rounded-lg text-white hover:bg-teal-500/20 transition-colors">
+            <span class="text-sm font-medium">百度</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 中间：输入框 -->
+    <input 
+      type="search" 
+      id="search-input"
+      name="q" 
+      placeholder="输入关键词搜索..." 
+      class="flex-1 bg-transparent text-white px-4 py-3 outline-none placeholder-gray-500 text-sm w-full"
+      autocomplete="off"
+    />
+
+    <!-- 右侧：搜索按钮 -->
+    <button type="submit" class="shrink-0 h-full px-5 bg-teal-500 hover:bg-teal-400 transition-colors flex items-center justify-center rounded-r-full focus:outline-none" aria-label="搜索">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  // 搜索引擎配置
+  const engines = {
+    bing: { 
+      action: 'https://www.bing.com/search', 
+      paramName: 'q', 
+      placeholder: '微软必应搜索',
+      name: '必应',
+      logo: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3v18l7-5.5V3H5zm7 12.5L5 20.5V4h7v11.5z"/><path d="M19 3h-7v12.5L5 21h14V3z"/></svg>'
+    },
+    quark: { 
+      action: 'https://quark.sm.cn/s', 
+      paramName: 'q', 
+      placeholder: '夸克AI引擎，极速搜索',
+      name: '夸克',
+      logo: '<svg viewBox="0 0 24 24" fill="#FF6A00"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>'
+    },
+    baidu: { 
+      action: 'https://www.baidu.com/s', 
+      paramName: 'wd', 
+      placeholder: '百度一下，你就知道',
+      name: '百度',
+      logo: '<svg viewBox="0 0 24 24" fill="#2932E1"><path d="M5.927 12.497c2.063-.443 1.782-2.909 1.72-3.448-.101-.87-.976-2.356-2.373-2.247-1.746.136-1.837 2.55-1.837 2.55-.106 1.403.926 3.128 2.49 3.145zm3.786-4.658c1.254-.053 1.917-1.356 2.04-2.313.114-.905-.48-2.25-1.916-2.25-1.335 0-2.014 1.23-2.096 2.23-.097 1.165.716 2.386 1.972 2.333zm5.086-.106c1.35.07 2.115-1.162 2.205-2.09.09-.928-.578-2.313-1.998-2.378-1.412-.065-2.145 1.198-2.238 2.18-.093.98.617 2.22 2.031 2.288zm4.615 3.613c1.26.043 2.193-1.18 2.268-2.16.075-.98-.6-2.39-1.998-2.446-1.398-.057-2.178 1.22-2.25 2.19-.073.97.6 2.373 1.98 2.416zm-3.436 6.262c-.576-.3-1.248-.468-1.248-1.152 0-.684.624-.912 1.248-1.14.624-.228 1.872-.6 1.872-1.8 0-1.2-1.104-2.04-2.496-2.04-1.392 0-2.496.84-2.496 2.04 0 1.2 1.248 1.572 1.872 1.8.624.228 1.248.456 1.248 1.14 0 .684-.672.852-1.248 1.152-.576.3-1.872.84-1.872 2.04 0 1.2 1.104 2.04 2.496 2.04 1.392 0 2.496-.84 2.496-2.04 0-1.2-1.248-1.74-1.872-2.04z"/></svg>'
+    }
+  };
+
+  // 1. 获取 DOM 元素
+  const form = document.getElementById('search-form') as HTMLFormElement;
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const dropdownBtn = document.getElementById('dropdown-btn');
+  const dropdownMenu = document.getElementById('dropdown-menu');
+  const dropdownArrow = document.getElementById('dropdown-arrow');
+  const currentName = document.getElementById('current-name');
+  const options = document.querySelectorAll('.engine-option');
+
+  // 2. 核心防御：如果关键元素不存在，则终止脚本执行
+  if (!form || !input || !dropdownBtn || !dropdownMenu || !dropdownArrow || !currentName) {
+    console.error('SearchBox 初始化失败：必要的 DOM 元素未找到。');
+  } else {
+    // 只有在所有元素都存在的情况下，才绑定事件
+    let isOpen = false;
+
+    // 切换下拉菜单显示/隐藏
+    const toggleMenu = () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        dropdownMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        dropdownMenu.classList.add('opacity-100', 'scale-100');
+        dropdownArrow.classList.add('rotate-180');
+      } else {
+        dropdownMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        dropdownMenu.classList.remove('opacity-100', 'scale-100');
+        dropdownArrow.classList.remove('rotate-180');
+      }
+    };
+
+    // 绑定按钮点击事件
+    dropdownBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMenu();
+    });
+
+    // 点击页面其他地方自动关闭菜单
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node; // 类型断言
+      if (!dropdownBtn.contains(target) && !dropdownMenu.contains(target) && isOpen) {
+        toggleMenu();
+      }
+    });
+
+    // 选择搜索引擎
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const engineKey = (option as HTMLElement).dataset.engine;
+        // 简单的类型检查，确保 key 有效
+        if (engineKey && engines[engineKey as keyof typeof engines]) {
+          const engine = engines[engineKey as keyof typeof engines];
+
+          // 更新表单属性
+          form.action = engine.action;
+          input.name = engine.paramName;
+          input.placeholder = engine.placeholder;
+
+          // 更新按钮显示的文字
+          currentName.textContent = engine.name;
+
+          // 关闭菜单
+          toggleMenu();
+        }
+      });
+    });
+  }
+</script>
+

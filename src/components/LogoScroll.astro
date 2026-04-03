@@ -1,0 +1,19 @@
+---
+interface Props {
+  logos: { src: string; alt: string }[];
+}
+
+const { logos } = Astro.props;
+---
+
+<div class="flex flex-wrap justify-center items-center gap-8 py-6 px-4">
+  {logos.map((logo) => (
+    <img 
+      src={logo.src} 
+      alt={logo.alt} 
+      width="48" 
+      height="48" 
+      class="shrink-0 opacity-80 hover:opacity-100 transition-opacity duration-300"
+    />
+  ))}
+</div>

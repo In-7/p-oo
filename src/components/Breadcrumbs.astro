@@ -15,7 +15,7 @@ export interface Props {
 const { items, currentPage } = Astro.props;
 ---
 
-<nav class="flex items-center space-x-2 text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+<nav class="sr-only" aria-label="Breadcrumb">
   <ol class="flex items-center space-x-2 list-none p-0 m-0">
     {items.map((item, index) => (
       <li class="flex items-center">

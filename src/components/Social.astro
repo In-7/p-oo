@@ -9,16 +9,13 @@ const { platform, username, icon } = Astro.props;
 
 // 1. 定义链接映射
 const hrefMap: Record<string, string> = {
-  // GitHub 和 Bilibili 保持正常的跳转链接
   GitHub: `https://github.com/${username}`,
   Bilibili: `https://www.bilibili.com/${username}`,
-  // 微信不需要跳转链接，设为空字符串即可
   Weixin: ``,
 };
 
 const href = hrefMap[platform] || `#`;
 
-// 2. 判断是否为微信（微信需要特殊处理）
 const isWeixin = platform === 'Weixin';
 ---
 
@@ -46,11 +43,11 @@ const isWeixin = platform === 'Weixin';
       <!-- 二维码图片区域 -->
       <div class="flex flex-col items-center text-center">
         <img 
-          src="../public/wechat.jpg"  
+          src="../wechat.jpg"  
           alt="微信二维码" 
           class="w-full h-auto rounded"
         />
-        <span class="text-xs text-teal-600 mt-1 font-medium">扫码关注</span>
+        <span class="text-xs text-teal-700 mt-1 font-medium">扫码关注</span>
       </div>
     </div>
   </div>
@@ -70,7 +67,7 @@ const isWeixin = platform === 'Weixin';
     justify-content: center;
     width: 1.5rem;
     height: 1.5rem;
-    color: rgb(45, 212, 191);
+    color: rgb(36, 211, 214);
     background-color: transparent;
     text-decoration: none;
     border: none; /* 清除 button 默认边框 */
@@ -82,7 +79,7 @@ const isWeixin = platform === 'Weixin';
 
   .social-link:hover,
   .social-link:focus {
-    background-color: rgba(45, 212, 191, 0.1);
+    background-color: rgba(36, 21, 214, 0.1);
     color: white;
     outline: none; /* 移除默认 focus 蓝框，用背景色代替 */
   }
