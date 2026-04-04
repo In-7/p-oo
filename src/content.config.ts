@@ -11,7 +11,7 @@ const software = defineCollection({
       description: z.string(),
       price: z.string(),
       platform: z.string(),
-      icon: image(), // 优化：使用 image() 处理本地图片
+      icon: image(), 
       color: z.string(),
     }),
 });
@@ -51,11 +51,10 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      pubDate: z.coerce.date(), // 优化：自动转换日期字符串
+      pubDate: z.coerce.date(), 
       category: z.string(),
       author: z.string().optional(),
       tags: z.array(z.string()).optional(),
-      // 可选：如果博客关联了游戏或软件
       relatedGame: reference('game').optional(),
     }),
 });

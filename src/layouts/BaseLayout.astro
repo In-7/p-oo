@@ -25,5 +25,29 @@ const { title, description = "Mped的个人网站" } = Astro.props;
   </head>
   <body class="flex flex-col min-h-screen">
     <slot />
+    <button
+      id="back-to-top"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="fixed bottom-6 right-6 p-3 bg-teal-500 hover:bg-teal-400 text-white rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50 cursor-pointer"
+      aria-label="回到顶部"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
+    <script>
+      const btn = document.getElementById('back-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          btn?.classList.remove('opacity-0', 'pointer-events-none');
+          btn?.classList.add('opacity-100', 'animate-bounce');
+        } else {
+          btn?.classList.add('opacity-0', 'pointer-events-none');
+          btn?.classList.remove('opacity-100', 'animate-bounce');
+        }
+      });
+    </script>
   </body>
 </html>
