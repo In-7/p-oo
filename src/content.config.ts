@@ -2,6 +2,11 @@ import { defineCollection, z, reference, } from 'astro:content';
 import type { SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const colorSchema = z.string().regex(
+  /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$|^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$|^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\)$|^[a-zA-Z]+$/,
+  '颜色格式无效，支持: #RGB, #RRGGBB, rgb(), rgba(), 或颜色名称'
+);
+
 const software = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/software' }),
   schema: ({ image }: SchemaContext) =>
@@ -12,7 +17,7 @@ const software = defineCollection({
       price: z.string(),
       platform: z.string(),
       icon: image(), 
-      color: z.string(),
+      color: colorSchema,
     }),
 });
 
@@ -26,7 +31,7 @@ const system = defineCollection({
       version: z.string(),
       architecture: z.string(),
       icon: image(),
-      color: z.string(),
+      color: colorSchema,
     }),
 });
 
@@ -41,7 +46,7 @@ const game = defineCollection({
       platform: z.string(),
       releaseYear: z.number(),
       icon: image(),
-      color: z.string(),
+      color: colorSchema,
     }),
 });
 

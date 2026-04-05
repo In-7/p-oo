@@ -7,7 +7,7 @@
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        @apply bg-linear-to-b from-zinc-700 to-zinc-900 font-extralight
+        @apply bg-linear-to-b from-zinc-800 to-zinc-600 font-extralight
            text-sm sm:text-base md:text-lg leading-relaxed sm:leading-normal
            text-gray-300 sm:text-gray-200 md:text-gray-100;
   }
