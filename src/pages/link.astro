@@ -91,7 +91,7 @@ const links: LinkItem[] = [
 //开源平台相关
   { name: "Gitcode", url: "https://gitcode.com/", desc: "全球最大的代码托管平台", tags: ["开源平台"], icon: "gitcode" },
   { name: "GitHub", url: "https://github.com", desc: "全球最大的代码托管平台", tags: ["开源平台"], icon: "github" },
-
+  { name: "开源中国", url: "https://www.oschina.net/", desc: "全球最大的代码托管平台", tags: ["开源平台"], icon: "oschina" },
 
 
 //AI助手相关
@@ -139,7 +139,7 @@ const linksByTag = allTags.reduce((acc, tag) => {
   <!-- 左侧分类导航 - 固定在页面左侧，手机端隐藏 -->
   <aside class="fixed left-0 top-24 z-40 pl-2 max-md:hidden">
     <div class="bg-zinc-800/80 backdrop-blur-sm rounded-r-xl border border-zinc-700 p-8">
-      <h2 class="text-lg font-medium text-teal-400 mb-4">分类</h2>
+      <h2 class="text-lg font-medium text-teal-200 mb-4">分类</h2>
       <ul class="space-y-2">
         {allTags.map((tag) => (
           <li>
