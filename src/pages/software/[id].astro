@@ -28,6 +28,9 @@ if (!software) {
 
 const { Content } = await render(software);
 
+const getColor = (name: string) => `hsl(${name.charCodeAt(0) * 15 % 360}, 70%, 50%)`;
+const bgColor = software.data.color || getColor(software.data.name);
+
 const pageTitle = `${software.data.name} - 软件详情 - Mped的个人网站`;
 const pageDescription = `${software.data.name} - ${software.data.description}`;
 ---
@@ -51,7 +54,7 @@ const pageDescription = `${software.data.name} - ${software.data.description}`;
           <div class="flex items-center">
             <div
               class="w-16 h-16 rounded-lg flex items-center justify-center"
-              style={`background-color: ${software.data.color};`}
+              style={`background-color: ${bgColor};`}
             >
               <span class="text-white font-bold text-2xl">{software.data.icon}</span>
             </div>

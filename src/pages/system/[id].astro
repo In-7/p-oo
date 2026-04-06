@@ -29,6 +29,9 @@ if (!system) {
 
 const { Content } = await render(system);
 
+const getColor = (name: string) => `hsl(${name.charCodeAt(0) * 15 % 360}, 70%, 50%)`;
+const bgColor = system.data.color || getColor(system.data.name);
+
 const pageTitle = `${system.data.name} - 操作系统详情 - Mped的个人网站`;
 const pageDescription = `${system.data.name} - ${system.data.description}`;
 ---
@@ -52,7 +55,7 @@ const pageDescription = `${system.data.name} - ${system.data.description}`;
           <div class="flex items-center">
             <div
               class="w-16 h-16 rounded-lg flex items-center justify-center"
-              style={`background-color: ${system.data.color};`}
+              style={`background-color: ${bgColor};`}
             >
               <span class="text-white font-bold text-2xl">{system.data.icon}</span>
             </div>

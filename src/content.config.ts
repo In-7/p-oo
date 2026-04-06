@@ -9,45 +9,42 @@ const colorSchema = z.string().regex(
 
 const software = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/software' }),
-  schema: ({ image }: SchemaContext) =>
-    z.object({
-      name: z.string(),
-      category: z.string(),
-      description: z.string(),
-      price: z.string(),
-      platform: z.string(),
-      icon: image(), 
-      color: colorSchema,
-    }),
+  schema: z.object({
+    name: z.string(),
+    category: z.string(),
+    description: z.string(),
+    price: z.string(),
+    platform: z.string(),
+    icon: z.string(),
+    color: colorSchema.optional(),
+  }),
 });
 
 const system = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/system' }),
-  schema: ({ image }: SchemaContext) =>
-    z.object({
-      name: z.string(),
-      category: z.string(),
-      description: z.string(),
-      version: z.string(),
-      architecture: z.string(),
-      icon: image(),
-      color: colorSchema,
-    }),
+  schema: z.object({
+    name: z.string(),
+    category: z.string(),
+    description: z.string(),
+    version: z.string(),
+    architecture: z.string(),
+    icon: z.string(),
+    color: colorSchema.optional(),
+  }),
 });
 
 const game = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/game' }),
-  schema: ({ image }: SchemaContext) =>
-    z.object({
-      name: z.string(),
-      category: z.string(),
-      description: z.string(),
-      genre: z.string(),
-      platform: z.string(),
-      releaseYear: z.number(),
-      icon: image(),
-      color: colorSchema,
-    }),
+  schema: z.object({
+    name: z.string(),
+    category: z.string(),
+    description: z.string(),
+    genre: z.string(),
+    platform: z.string(),
+    releaseYear: z.number(),
+    icon: z.string(),
+    color: colorSchema.optional(),
+  }),
 });
 
 const blog = defineCollection({

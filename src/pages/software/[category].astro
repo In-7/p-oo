@@ -29,6 +29,8 @@ export async function getStaticPaths() {
 
 const { category, filteredSoftware, allCategories } = Astro.props;
 
+const getColor = (name: string) => `hsl(${name.charCodeAt(0) * 15 % 360}, 70%, 50%)`;
+
 const breadcrumbItems = [
   { label: '主页', href: '/' },
   { label: '软件工具', href: '/software' },
@@ -66,7 +68,7 @@ const breadcrumbItems = [
               <div class="flex items-center mb-4">
                 <div
                   class="w-20 h-10 rounded-lg flex items-center justify-center"
-                  style={`background-color: ${software.data.color};`}
+                  style={`background-color: ${software.data.color || getColor(software.data.name)};`}
                 >
                   <span class="text-white font-bold text-xl">{software.data.icon}</span>
                 </div>

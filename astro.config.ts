@@ -2,10 +2,18 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
 import sitemap from '@astrojs/sitemap';
+import rehypeExternalLinks from 'rehype-external-links';
 
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  // Markdown 配置 - 外部链接新窗口打开
+  markdown: {
+    rehypePlugins: [
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }]
+    ],
   },
 
   // 压缩和优化
