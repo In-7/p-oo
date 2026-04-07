@@ -42,10 +42,7 @@ export default defineConfig({
   trailingSlash: 'ignore',
 
   // 集成
-  integrations: [
-    sitemap(),
-    pagefind({
+  integrations: [sitemap(), pagefind({
     }),
-    (await import('@playform/compress')).default(),
-  ],
+    (await import('@playform/compress')).default()],
 });
